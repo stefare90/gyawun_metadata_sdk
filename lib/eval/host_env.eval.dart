@@ -5,30 +5,32 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'plugin_response.dart';
+import '../metadata/host_env.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/inetwork_service.dart';
 import 'package:dart_eval/stdlib/core.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/inetwork_service.eval.dart';
 
-/// dart_eval wrapper binding for [PluginResponse]
-class $PluginResponse implements $Instance {
+/// dart_eval wrapper binding for [HostEnv]
+class $HostEnv implements $Instance {
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-      'package:gyawun_metadata_sdk/metadata/models/plugin_response.dart',
-      'PluginResponse.',
-      $PluginResponse.$new,
+      'package:gyawun_metadata_sdk/metadata/host_env.dart',
+      'HostEnv.',
+      $HostEnv.$new,
     );
   }
 
-  /// Compile-time type specification of [$PluginResponse]
+  /// Compile-time type specification of [$HostEnv]
   static const $spec = BridgeTypeSpec(
-    'package:gyawun_metadata_sdk/metadata/models/plugin_response.dart',
-    'PluginResponse',
+    'package:gyawun_metadata_sdk/metadata/host_env.dart',
+    'HostEnv',
   );
 
-  /// Compile-time type declaration of [$PluginResponse]
+  /// Compile-time type declaration of [$HostEnv]
   static const $type = BridgeTypeRef($spec);
 
-  /// Compile-time class declaration of [$PluginResponse]
+  /// Compile-time class declaration of [$HostEnv]
   static const $declaration = BridgeClassDef(
     BridgeClassType($type),
     constructors: {
@@ -37,14 +39,16 @@ class $PluginResponse implements $Instance {
           returns: BridgeTypeAnnotation($type),
           namedParams: [
             BridgeParameter(
-              'statusCode',
-              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, [])),
-              false,
-            ),
-
-            BridgeParameter(
-              'body',
-              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
+              'network',
+              BridgeTypeAnnotation(
+                BridgeTypeRef(
+                  BridgeTypeSpec(
+                    'package:gyawun_metadata_sdk/metadata/interfaces/inetwork_service.dart',
+                    'INetworkService',
+                  ),
+                  [],
+                ),
+              ),
               false,
             ),
           ],
@@ -58,13 +62,16 @@ class $PluginResponse implements $Instance {
     getters: {},
     setters: {},
     fields: {
-      'statusCode': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, [])),
-        isStatic: false,
-      ),
-
-      'body': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
+      'network': BridgeFieldDef(
+        BridgeTypeAnnotation(
+          BridgeTypeRef(
+            BridgeTypeSpec(
+              'package:gyawun_metadata_sdk/metadata/interfaces/inetwork_service.dart',
+              'INetworkService',
+            ),
+            [],
+          ),
+        ),
         isStatic: false,
       ),
     },
@@ -72,23 +79,21 @@ class $PluginResponse implements $Instance {
     bridge: false,
   );
 
-  /// Wrapper for the [PluginResponse.new] constructor
+  /// Wrapper for the [HostEnv.new] constructor
   static $Value? $new(Runtime runtime, $Value? thisValue, List<$Value?> args) {
-    return $PluginResponse.wrap(
-      PluginResponse(statusCode: args[0]!.$value, body: args[1]!.$value),
-    );
+    return $HostEnv.wrap(HostEnv(network: args[0]!.$value));
   }
 
   final $Instance _superclass;
 
   @override
-  final PluginResponse $value;
+  final HostEnv $value;
 
   @override
-  PluginResponse get $reified => $value;
+  HostEnv get $reified => $value;
 
-  /// Wrap a [PluginResponse] in a [$PluginResponse]
-  $PluginResponse.wrap(this.$value) : _superclass = $Object($value);
+  /// Wrap a [HostEnv] in a [$HostEnv]
+  $HostEnv.wrap(this.$value) : _superclass = $Object($value);
 
   @override
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
@@ -96,13 +101,9 @@ class $PluginResponse implements $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'statusCode':
-        final _statusCode = $value.statusCode;
-        return $int(_statusCode);
-
-      case 'body':
-        final _body = $value.body;
-        return $String(_body);
+      case 'network':
+        final _network = $value.network;
+        return $INetworkService.wrap(_network);
     }
     return _superclass.$getProperty(runtime, identifier);
   }

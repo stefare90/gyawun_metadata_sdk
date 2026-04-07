@@ -8,4 +8,3 @@ export 'package:gyawun_metadata_sdk/metadata/interfaces/isearch.dart';
 export 'package:gyawun_metadata_sdk/metadata/interfaces/itrack.dart';
 export 'package:gyawun_metadata_sdk/metadata/interfaces/iuser.dart';
 export 'package:gyawun_metadata_sdk/metadata/interfaces/iartist.dart';
-export 'package:gyawun_metadata_sdk/metadata/interfaces/inetwork_service.dart';

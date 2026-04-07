@@ -5,31 +5,53 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'imetadata_plugin.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces.dart';
-import 'package:dart_eval/stdlib/core.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces/iartist.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces/ialbum.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces/iauth.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces/ibrowse.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces/icore.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces/iplaylist.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces/isearch.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces/itrack.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/interfaces/iuser.eval.dart';
+import '../../metadata/interfaces/imetadata_plugin.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/ialbum.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/iartist.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/iauth.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/ibrowse.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/icore.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/iplaylist.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/isearch.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/itrack.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/iuser.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/iartist.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/ialbum.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/iauth.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/ibrowse.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/icore.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/iplaylist.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/isearch.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/itrack.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/iuser.eval.dart';
 
-/// dart_eval wrapper binding for [IMetadataPlugin]
-class $IMetadataPlugin implements $Instance {
+/// dart_eval bridge binding for [IMetadataPlugin]
+class $IMetadataPlugin$bridge extends IMetadataPlugin
+    with $Bridge<IMetadataPlugin> {
+  /// Forwarded constructor for [IMetadataPlugin.new]
+  $IMetadataPlugin$bridge();
+
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $IMetadataPlugin$bridge();
+  }
+
   /// Configure this class for use in a [Runtime]
-  static void configureForRuntime(Runtime runtime) {}
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc(
+      $spec.library,
+      'IMetadataPlugin.',
+      $new,
+      isBridge: true,
+    );
+  }
 
-  /// Compile-time type specification of [$IMetadataPlugin]
+  /// Compile-time type specification of [$IMetadataPlugin$bridge]
   static const $spec = BridgeTypeSpec(
     'package:gyawun_metadata_sdk/metadata/interfaces/imetadata_plugin.dart',
     'IMetadataPlugin',
   );
 
-  /// Compile-time type declaration of [$IMetadataPlugin]
+  /// Compile-time type declaration of [$IMetadataPlugin$bridge]
   static const $type = BridgeTypeRef($spec);
 
   /// Compile-time class declaration of [$IMetadataPlugin]
@@ -194,68 +216,78 @@ class $IMetadataPlugin implements $Instance {
     },
     setters: {},
     fields: {},
-    wrap: true,
-    bridge: false,
+    wrap: false,
+    bridge: true,
   );
 
-  final $Instance _superclass;
-
   @override
-  final IMetadataPlugin $value;
-
-  @override
-  IMetadataPlugin get $reified => $value;
-
-  /// Wrap a [IMetadataPlugin] in a [$IMetadataPlugin]
-  $IMetadataPlugin.wrap(this.$value) : _superclass = $Object($value);
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
+  $Value? $bridgeGet(String identifier) {
     switch (identifier) {
       case 'artist':
-        final _artist = $value.artist;
-        return $IArtist.wrap(_artist);
+        final _artist = super.artist;
+        return _artist as $Instance;
 
       case 'album':
-        final _album = $value.album;
-        return $IAlbum.wrap(_album);
+        final _album = super.album;
+        return _album as $Instance;
 
       case 'auth':
-        final _auth = $value.auth;
-        return $IAuth.wrap(_auth);
+        final _auth = super.auth;
+        return _auth as $Instance;
 
       case 'browse':
-        final _browse = $value.browse;
-        return $IBrowse.wrap(_browse);
-
+        final _browse = super.browse;
+        return _browse as $Instance;
       case 'core':
-        final _core = $value.core;
-        return $ICore.wrap(_core);
+        final _core = super.core;
+        return _core as $Instance;
 
       case 'playlist':
-        final _playlist = $value.playlist;
-        return $IPlaylist.wrap(_playlist);
+        final _playlist = super.playlist;
+        return _playlist as $Instance;
 
       case 'search':
-        final _search = $value.search;
-        return $ISearch.wrap(_search);
+        final _search = super.search;
+        return _search as $Instance;
 
       case 'track':
-        final _track = $value.track;
-        return $ITrack.wrap(_track);
+        final _track = super.track;
+        return _track as $Instance;
 
       case 'user':
-        final _user = $value.user;
-        return $IUser.wrap(_user);
+        final _user = super.user;
+        return _user as $Instance;
     }
-    return _superclass.$getProperty(runtime, identifier);
+    return null;
   }
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    return _superclass.$setProperty(runtime, identifier, value);
-  }
+  void $bridgeSet(String identifier, $Value value) {}
+
+  @override
+  IArtist get artist => $_get('artist');
+
+  @override
+  IAlbum get album => $_get('album');
+
+  @override
+  IAuth get auth => $_get('auth');
+
+  @override
+  IBrowse get browse => $_get('browse');
+
+  @override
+  ICore get core => $_get('core');
+
+  @override
+  IPlaylist get playlist => $_get('playlist');
+
+  @override
+  ISearch get search => $_get('search');
+
+  @override
+  ITrack get track => $_get('track');
+
+  @override
+  IUser get user => $_get('user');
 }

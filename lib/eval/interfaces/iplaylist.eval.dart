@@ -5,25 +5,30 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'iplaylist.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
-import 'package:dart_eval/stdlib/core.dart';
+import '../../metadata/interfaces/iplaylist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/pagination.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/playlist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 import 'package:dart_eval/stdlib/async.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/pagination.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/playlist.eval.dart';
+import 'package:dart_eval/stdlib/core.dart';
+import 'package:gyawun_metadata_sdk/eval/models/pagination.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/playlist.eval.dart';
 
-/// dart_eval wrapper binding for [IPlaylist]
-class $IPlaylist implements $Instance {
+/// dart_eval bridge binding for [IPlaylist]
+class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
+  /// Forwarded constructor for [IPlaylist.new]
+  $IPlaylist$bridge();
+
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {}
 
-  /// Compile-time type specification of [$IPlaylist]
+  /// Compile-time type specification of [$IPlaylist$bridge]
   static const $spec = BridgeTypeSpec(
     'package:gyawun_metadata_sdk/metadata/interfaces/iplaylist.dart',
     'IPlaylist',
   );
 
-  /// Compile-time type declaration of [$IPlaylist]
+  /// Compile-time type declaration of [$IPlaylist$bridge]
   static const $type = BridgeTypeRef($spec);
 
   /// Compile-time class declaration of [$IPlaylist]
@@ -348,171 +353,158 @@ class $IPlaylist implements $Instance {
     getters: {},
     setters: {},
     fields: {},
-    wrap: true,
-    bridge: false,
+    wrap: false,
+    bridge: true,
   );
 
-  final $Instance _superclass;
-
   @override
-  final IPlaylist $value;
-
-  @override
-  IPlaylist get $reified => $value;
-
-  /// Wrap a [IPlaylist] in a [$IPlaylist]
-  $IPlaylist.wrap(this.$value) : _superclass = $Object($value);
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
+  $Value? $bridgeGet(String identifier) {
     switch (identifier) {
       case 'getPlaylist':
-        return __getPlaylist;
-
+        return $Function((runtime, target, args) {
+          final result = super.getPlaylist(args[1]!.$value);
+          return $Future.wrap(result.then((e) => $Map.wrap(e)));
+        });
       case 'tracks':
-        return __tracks;
-
+        return $Function((runtime, target, args) {
+          final result = super.tracks(
+            args[1]!.$value,
+            offset: args[2]?.$value ?? 0,
+            limit: args[3]?.$value ?? 20,
+          );
+          return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
+        });
       case 'createPlaylist':
-        return __createPlaylist;
-
+        return $Function((runtime, target, args) {
+          final result = super.createPlaylist(
+            args[1]!.$value,
+            args[2]!.$value,
+            description: args[3]?.$value,
+            public_: args[4]?.$value,
+            collaborative: args[5]?.$value,
+          );
+          return $Future.wrap(
+            result.then((e) => e == null ? const $null() : $Playlist.wrap(e)),
+          );
+        });
       case 'updatePlaylist':
-        return __updatePlaylist;
-
+        return $Function((runtime, target, args) {
+          final result = super.updatePlaylist(
+            args[1]!.$value,
+            name: args[2]?.$value,
+            description: args[3]?.$value,
+            public_: args[4]?.$value,
+            collaborative: args[5]?.$value,
+          );
+          return $Future.wrap(result.then((e) => null));
+        });
       case 'deletePlaylist':
-        return __deletePlaylist;
-
+        return $Function((runtime, target, args) {
+          final result = super.deletePlaylist(args[1]!.$value);
+          return $Future.wrap(result.then((e) => null));
+        });
       case 'addTracks':
-        return __addTracks;
-
+        return $Function((runtime, target, args) {
+          final result = super.addTracks(
+            args[1]!.$value,
+            (args[2]!.$reified as List).cast(),
+            position: args[3]?.$value,
+          );
+          return $Future.wrap(result.then((e) => null));
+        });
       case 'removeTracks':
-        return __removeTracks;
-
+        return $Function((runtime, target, args) {
+          final result = super.removeTracks(
+            args[1]!.$value,
+            (args[2]!.$reified as List).cast(),
+          );
+          return $Future.wrap(result.then((e) => null));
+        });
       case 'save':
-        return __save;
-
+        return $Function((runtime, target, args) {
+          final result = super.save(args[1]!.$value);
+          return $Future.wrap(result.then((e) => null));
+        });
       case 'unsave':
-        return __unsave;
+        return $Function((runtime, target, args) {
+          final result = super.unsave(args[1]!.$value);
+          return $Future.wrap(result.then((e) => null));
+        });
     }
-    return _superclass.$getProperty(runtime, identifier);
-  }
-
-  static const $Function __getPlaylist = $Function(_getPlaylist);
-  static $Value? _getPlaylist(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IPlaylist;
-    final result = self.$value.getPlaylist(args[0]!.$value);
-    return $Future.wrap(result.then((e) => $Map.wrap(e)));
-  }
-
-  static const $Function __tracks = $Function(_tracks);
-  static $Value? _tracks(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $IPlaylist;
-    final result = self.$value.tracks(
-      args[0]!.$value,
-      offset: args[1]?.$value ?? 0,
-      limit: args[2]?.$value ?? 20,
-    );
-    return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
-  }
-
-  static const $Function __createPlaylist = $Function(_createPlaylist);
-  static $Value? _createPlaylist(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IPlaylist;
-    final result = self.$value.createPlaylist(
-      args[0]!.$value,
-      args[1]!.$value,
-      description: args[2]?.$value,
-      public_: args[3]?.$value,
-      collaborative: args[4]?.$value,
-    );
-    return $Future.wrap(
-      result.then((e) => e == null ? const $null() : $Playlist.wrap(e)),
-    );
-  }
-
-  static const $Function __updatePlaylist = $Function(_updatePlaylist);
-  static $Value? _updatePlaylist(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IPlaylist;
-    final result = self.$value.updatePlaylist(
-      args[0]!.$value,
-      name: args[1]?.$value,
-      description: args[2]?.$value,
-      public_: args[3]?.$value,
-      collaborative: args[4]?.$value,
-    );
-    return $Future.wrap(result.then((e) => null));
-  }
-
-  static const $Function __deletePlaylist = $Function(_deletePlaylist);
-  static $Value? _deletePlaylist(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IPlaylist;
-    final result = self.$value.deletePlaylist(args[0]!.$value);
-    return $Future.wrap(result.then((e) => null));
-  }
-
-  static const $Function __addTracks = $Function(_addTracks);
-  static $Value? _addTracks(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IPlaylist;
-    final result = self.$value.addTracks(
-      args[0]!.$value,
-      (args[1]!.$reified as List).cast(),
-      position: args[2]?.$value,
-    );
-    return $Future.wrap(result.then((e) => null));
-  }
-
-  static const $Function __removeTracks = $Function(_removeTracks);
-  static $Value? _removeTracks(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IPlaylist;
-    final result = self.$value.removeTracks(
-      args[0]!.$value,
-      (args[1]!.$reified as List).cast(),
-    );
-    return $Future.wrap(result.then((e) => null));
-  }
-
-  static const $Function __save = $Function(_save);
-  static $Value? _save(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $IPlaylist;
-    final result = self.$value.save(args[0]!.$value);
-    return $Future.wrap(result.then((e) => null));
-  }
-
-  static const $Function __unsave = $Function(_unsave);
-  static $Value? _unsave(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $IPlaylist;
-    final result = self.$value.unsave(args[0]!.$value);
-    return $Future.wrap(result.then((e) => null));
+    return null;
   }
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    return _superclass.$setProperty(runtime, identifier, value);
-  }
+  void $bridgeSet(String identifier, $Value value) {}
+
+  @override
+  Future<Map<String, dynamic>> getPlaylist(String id) =>
+      $_invoke('getPlaylist', [$String(id)]);
+
+  @override
+  Future<PaginatedResult<Track>> tracks(
+    String id, {
+    int offset = 0,
+    int limit = 20,
+  }) => $_invoke('tracks', [$String(id), $int(offset), $int(limit)]);
+
+  @override
+  Future<Playlist?> createPlaylist(
+    String userId,
+    String name, {
+    String? description,
+    bool? public_,
+    bool? collaborative,
+  }) => $_invoke('createPlaylist', [
+    $String(userId),
+    $String(name),
+    description == null ? const $null() : $String(description),
+    public_ == null ? const $null() : $bool(public_),
+    collaborative == null ? const $null() : $bool(collaborative),
+  ]);
+
+  @override
+  Future<void> updatePlaylist(
+    String playlistId, {
+    String? name,
+    String? description,
+    bool? public_,
+    bool? collaborative,
+  }) => $_invoke('updatePlaylist', [
+    $String(playlistId),
+    name == null ? const $null() : $String(name),
+    description == null ? const $null() : $String(description),
+    public_ == null ? const $null() : $bool(public_),
+    collaborative == null ? const $null() : $bool(collaborative),
+  ]);
+
+  @override
+  Future<void> deletePlaylist(String playlistId) =>
+      $_invoke('deletePlaylist', [$String(playlistId)]);
+
+  @override
+  Future<void> addTracks(
+    String playlistId,
+    List<String> trackIds, {
+    int? position,
+  }) => $_invoke('addTracks', [
+    $String(playlistId),
+    $List.view(trackIds, (e) => $String(e)),
+    position == null ? const $null() : $int(position),
+  ]);
+
+  @override
+  Future<void> removeTracks(String playlistId, List<String> trackIds) =>
+      $_invoke('removeTracks', [
+        $String(playlistId),
+        $List.view(trackIds, (e) => $String(e)),
+      ]);
+
+  @override
+  Future<void> save(String playlistId) =>
+      $_invoke('save', [$String(playlistId)]);
+
+  @override
+  Future<void> unsave(String playlistId) =>
+      $_invoke('unsave', [$String(playlistId)]);
 }

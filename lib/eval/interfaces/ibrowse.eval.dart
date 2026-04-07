@@ -5,24 +5,28 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'ibrowse.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
-import 'package:dart_eval/stdlib/core.dart';
+import '../../metadata/interfaces/ibrowse.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/pagination.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/section.dart';
 import 'package:dart_eval/stdlib/async.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/pagination.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/pagination.eval.dart';
+import 'package:dart_eval/stdlib/core.dart';
 
-/// dart_eval wrapper binding for [IBrowse]
-class $IBrowse implements $Instance {
+/// dart_eval bridge binding for [IBrowse]
+class $IBrowse$bridge extends IBrowse with $Bridge<IBrowse> {
+  /// Forwarded constructor for [IBrowse.new]
+  $IBrowse$bridge();
+
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {}
 
-  /// Compile-time type specification of [$IBrowse]
+  /// Compile-time type specification of [$IBrowse$bridge]
   static const $spec = BridgeTypeSpec(
     'package:gyawun_metadata_sdk/metadata/interfaces/ibrowse.dart',
     'IBrowse',
   );
 
-  /// Compile-time type declaration of [$IBrowse]
+  /// Compile-time type declaration of [$IBrowse$bridge]
   static const $type = BridgeTypeRef($spec);
 
   /// Compile-time class declaration of [$IBrowse]
@@ -123,67 +127,45 @@ class $IBrowse implements $Instance {
     getters: {},
     setters: {},
     fields: {},
-    wrap: true,
-    bridge: false,
+    wrap: false,
+    bridge: true,
   );
 
-  final $Instance _superclass;
-
   @override
-  final IBrowse $value;
-
-  @override
-  IBrowse get $reified => $value;
-
-  /// Wrap a [IBrowse] in a [$IBrowse]
-  $IBrowse.wrap(this.$value) : _superclass = $Object($value);
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
+  $Value? $bridgeGet(String identifier) {
     switch (identifier) {
       case 'sections':
-        return __sections;
-
+        return $Function((runtime, target, args) {
+          final result = super.sections(
+            offset: args[1]?.$value ?? 0,
+            limit: args[2]?.$value ?? 20,
+          );
+          return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
+        });
       case 'sectionItems':
-        return __sectionItems;
+        return $Function((runtime, target, args) {
+          final result = super.sectionItems(
+            args[1]!.$value,
+            offset: args[2]?.$value ?? 0,
+            limit: args[3]?.$value ?? 20,
+          );
+          return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
+        });
     }
-    return _superclass.$getProperty(runtime, identifier);
-  }
-
-  static const $Function __sections = $Function(_sections);
-  static $Value? _sections(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IBrowse;
-    final result = self.$value.sections(
-      offset: args[0]?.$value ?? 0,
-      limit: args[1]?.$value ?? 20,
-    );
-    return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
-  }
-
-  static const $Function __sectionItems = $Function(_sectionItems);
-  static $Value? _sectionItems(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IBrowse;
-    final result = self.$value.sectionItems(
-      args[0]!.$value,
-      offset: args[1]?.$value ?? 0,
-      limit: args[2]?.$value ?? 20,
-    );
-    return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
+    return null;
   }
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    return _superclass.$setProperty(runtime, identifier, value);
-  }
+  void $bridgeSet(String identifier, $Value value) {}
+
+  @override
+  Future<PaginatedResult<Section>> sections({int offset = 0, int limit = 20}) =>
+      $_invoke('sections', [$int(offset), $int(limit)]);
+
+  @override
+  Future<PaginatedResult<dynamic>> sectionItems(
+    String id, {
+    int offset = 0,
+    int limit = 20,
+  }) => $_invoke('sectionItems', [$String(id), $int(offset), $int(limit)]);
 }

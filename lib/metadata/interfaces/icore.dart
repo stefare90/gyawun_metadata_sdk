@@ -1,6 +1,6 @@
 import 'package:eval_annotation/eval_annotation.dart';
 
-@Bind()
+@Bind(bridge: true)
 abstract class ICore {
   Future<Map<String, dynamic>?> checkUpdate(Map<String, dynamic> pluginConfig) {
     throw Exception('Method not implemented.');

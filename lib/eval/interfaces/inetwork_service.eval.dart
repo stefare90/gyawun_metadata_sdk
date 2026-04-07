@@ -5,11 +5,12 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'inetwork_service.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
+import 'package:gyawun_metadata_sdk/eval/models/plugin_response.eval.dart';
+import '../../metadata/interfaces/inetwork_service.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/plugin_request.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/plugin_response.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/async.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/plugin_response.eval.dart';
 
 /// dart_eval wrapper binding for [INetworkService]
 class $INetworkService implements $Instance {

@@ -5,25 +5,33 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'isearch.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
+import '../../metadata/interfaces/isearch.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/album.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/artist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/pagination.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/playlist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/search.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:dart_eval/stdlib/async.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/search.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/pagination.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/search.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/pagination.eval.dart';
 
-/// dart_eval wrapper binding for [ISearch]
-class $ISearch implements $Instance {
+/// dart_eval bridge binding for [ISearch]
+class $ISearch$bridge extends ISearch with $Bridge<ISearch> {
+  /// Forwarded constructor for [ISearch.new]
+  $ISearch$bridge();
+
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {}
 
-  /// Compile-time type specification of [$ISearch]
+  /// Compile-time type specification of [$ISearch$bridge]
   static const $spec = BridgeTypeSpec(
     'package:gyawun_metadata_sdk/metadata/interfaces/isearch.dart',
     'ISearch',
   );
 
-  /// Compile-time type declaration of [$ISearch]
+  /// Compile-time type declaration of [$ISearch$bridge]
   static const $type = BridgeTypeRef($spec);
 
   /// Compile-time class declaration of [$ISearch]
@@ -274,112 +282,97 @@ class $ISearch implements $Instance {
     getters: {},
     setters: {},
     fields: {},
-    wrap: true,
-    bridge: false,
+    wrap: false,
+    bridge: true,
   );
 
-  final $Instance _superclass;
-
   @override
-  final ISearch $value;
-
-  @override
-  ISearch get $reified => $value;
-
-  /// Wrap a [ISearch] in a [$ISearch]
-  $ISearch.wrap(this.$value) : _superclass = $Object($value);
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
+  $Value? $bridgeGet(String identifier) {
     switch (identifier) {
       case 'chips':
-        return __chips;
-
+        return $Function((runtime, target, args) {
+          final result = super.chips();
+          return $List.view(result, (e) => $String(e));
+        });
       case 'all':
-        return __all;
-
+        return $Function((runtime, target, args) {
+          final result = super.all(args[1]!.$value);
+          return $Future.wrap(result.then((e) => $SearchResponse.wrap(e)));
+        });
       case 'tracks':
-        return __tracks;
-
+        return $Function((runtime, target, args) {
+          final result = super.tracks(
+            args[1]!.$value,
+            offset: args[2]?.$value ?? 0,
+            limit: args[3]?.$value ?? 20,
+          );
+          return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
+        });
       case 'albums':
-        return __albums;
-
+        return $Function((runtime, target, args) {
+          final result = super.albums(
+            args[1]!.$value,
+            offset: args[2]?.$value ?? 0,
+            limit: args[3]?.$value ?? 20,
+          );
+          return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
+        });
       case 'artists':
-        return __artists;
-
+        return $Function((runtime, target, args) {
+          final result = super.artists(
+            args[1]!.$value,
+            offset: args[2]?.$value ?? 0,
+            limit: args[3]?.$value ?? 20,
+          );
+          return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
+        });
       case 'playlists':
-        return __playlists;
+        return $Function((runtime, target, args) {
+          final result = super.playlists(
+            args[1]!.$value,
+            offset: args[2]?.$value ?? 0,
+            limit: args[3]?.$value ?? 20,
+          );
+          return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
+        });
     }
-    return _superclass.$getProperty(runtime, identifier);
-  }
-
-  static const $Function __chips = $Function(_chips);
-  static $Value? _chips(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $ISearch;
-    final result = self.$value.chips();
-    return $List.view(result, (e) => $String(e));
-  }
-
-  static const $Function __all = $Function(_all);
-  static $Value? _all(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $ISearch;
-    final result = self.$value.all(args[0]!.$value);
-    return $Future.wrap(result.then((e) => $SearchResponse.wrap(e)));
-  }
-
-  static const $Function __tracks = $Function(_tracks);
-  static $Value? _tracks(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $ISearch;
-    final result = self.$value.tracks(
-      args[0]!.$value,
-      offset: args[1]?.$value ?? 0,
-      limit: args[2]?.$value ?? 20,
-    );
-    return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
-  }
-
-  static const $Function __albums = $Function(_albums);
-  static $Value? _albums(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $ISearch;
-    final result = self.$value.albums(
-      args[0]!.$value,
-      offset: args[1]?.$value ?? 0,
-      limit: args[2]?.$value ?? 20,
-    );
-    return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
-  }
-
-  static const $Function __artists = $Function(_artists);
-  static $Value? _artists(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $ISearch;
-    final result = self.$value.artists(
-      args[0]!.$value,
-      offset: args[1]?.$value ?? 0,
-      limit: args[2]?.$value ?? 20,
-    );
-    return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
-  }
-
-  static const $Function __playlists = $Function(_playlists);
-  static $Value? _playlists(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $ISearch;
-    final result = self.$value.playlists(
-      args[0]!.$value,
-      offset: args[1]?.$value ?? 0,
-      limit: args[2]?.$value ?? 20,
-    );
-    return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
+    return null;
   }
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    return _superclass.$setProperty(runtime, identifier, value);
-  }
+  void $bridgeSet(String identifier, $Value value) {}
+
+  @override
+  List<String> chips() => ($_invoke('chips', []) as List).cast();
+
+  @override
+  Future<SearchResponse> all(String query) => $_invoke('all', [$String(query)]);
+
+  @override
+  Future<PaginatedResult<Track>> tracks(
+    String query, {
+    int offset = 0,
+    int limit = 20,
+  }) => $_invoke('tracks', [$String(query), $int(offset), $int(limit)]);
+
+  @override
+  Future<PaginatedResult<Album>> albums(
+    String query, {
+    int offset = 0,
+    int limit = 20,
+  }) => $_invoke('albums', [$String(query), $int(offset), $int(limit)]);
+
+  @override
+  Future<PaginatedResult<Artist>> artists(
+    String query, {
+    int offset = 0,
+    int limit = 20,
+  }) => $_invoke('artists', [$String(query), $int(offset), $int(limit)]);
+
+  @override
+  Future<PaginatedResult<Playlist>> playlists(
+    String query, {
+    int offset = 0,
+    int limit = 20,
+  }) => $_invoke('playlists', [$String(query), $int(offset), $int(limit)]);
 }

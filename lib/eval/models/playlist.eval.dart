@@ -5,11 +5,12 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'playlist.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
+import '../../metadata/models/playlist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/image.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/user.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/user.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/image.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/user.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/image.eval.dart';
 
 /// dart_eval wrapper binding for [Playlist]
 class $Playlist implements $Instance {

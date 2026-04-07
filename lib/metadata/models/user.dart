@@ -1,5 +1,5 @@
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
 import 'package:eval_annotation/eval_annotation.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/image.dart';
 
 @Bind()
 class User {

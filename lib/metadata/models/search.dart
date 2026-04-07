@@ -1,5 +1,8 @@
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
 import 'package:eval_annotation/eval_annotation.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/album.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/artist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/playlist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 
 @Bind()
 class SearchResponse {

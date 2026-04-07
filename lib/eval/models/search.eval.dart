@@ -5,13 +5,16 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'search.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
+import '../../metadata/models/search.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/album.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/artist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/playlist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/album.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/artist.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/playlist.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/track.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/album.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/artist.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/playlist.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/track.eval.dart';
 
 /// dart_eval wrapper binding for [SearchResponse]
 class $SearchResponse implements $Instance {

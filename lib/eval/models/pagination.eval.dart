@@ -5,7 +5,7 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'pagination.dart';
+import '../../metadata/models/pagination.dart';
 import 'package:dart_eval/stdlib/core.dart';
 
 /// dart_eval wrapper binding for [PaginatedResult]

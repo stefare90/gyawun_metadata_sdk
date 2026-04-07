@@ -1,7 +1,7 @@
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
 import 'package:eval_annotation/eval_annotation.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 
-@Bind()
+@Bind(bridge: true)
 abstract class ITrack {
   Future<Track> getTrack(String id) {
     throw Exception('Method not implemented.');

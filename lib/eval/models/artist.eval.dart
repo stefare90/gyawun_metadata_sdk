@@ -5,10 +5,10 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'artist.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
+import '../../metadata/models/artist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/image.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/image.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/image.eval.dart';
 
 /// dart_eval wrapper binding for [Artist]
 class $Artist implements $Instance {

@@ -5,32 +5,30 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'user.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
+import '../../metadata/models/section.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/image.eval.dart';
 
-/// dart_eval wrapper binding for [User]
-class $User implements $Instance {
+/// dart_eval wrapper binding for [Section]
+class $Section implements $Instance {
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-      'package:gyawun_metadata_sdk/metadata/models/user.dart',
-      'User.',
-      $User.$new,
+      'package:gyawun_metadata_sdk/metadata/models/section.dart',
+      'Section.',
+      $Section.$new,
     );
   }
 
-  /// Compile-time type specification of [$User]
+  /// Compile-time type specification of [$Section]
   static const $spec = BridgeTypeSpec(
-    'package:gyawun_metadata_sdk/metadata/models/user.dart',
-    'User',
+    'package:gyawun_metadata_sdk/metadata/models/section.dart',
+    'Section',
   );
 
-  /// Compile-time type declaration of [$User]
+  /// Compile-time type declaration of [$Section]
   static const $type = BridgeTypeRef($spec);
 
-  /// Compile-time class declaration of [$User]
+  /// Compile-time class declaration of [$Section]
   static const $declaration = BridgeClassDef(
     BridgeClassType($type),
     constructors: {
@@ -45,33 +43,18 @@ class $User implements $Instance {
             ),
 
             BridgeParameter(
-              'name',
+              'title',
               BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
               false,
             ),
 
             BridgeParameter(
-              'images',
+              'description',
               BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.list, [
-                  BridgeTypeAnnotation(
-                    BridgeTypeRef(
-                      BridgeTypeSpec(
-                        'package:gyawun_metadata_sdk/metadata/models/image.dart',
-                        'Image',
-                      ),
-                      [],
-                    ),
-                  ),
-                ]),
+                BridgeTypeRef(CoreTypes.string, []),
+                nullable: true,
               ),
               true,
-            ),
-
-            BridgeParameter(
-              'externalUri',
-              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
-              false,
             ),
           ],
           params: [],
@@ -89,30 +72,16 @@ class $User implements $Instance {
         isStatic: false,
       ),
 
-      'name': BridgeFieldDef(
+      'title': BridgeFieldDef(
         BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
         isStatic: false,
       ),
 
-      'images': BridgeFieldDef(
+      'description': BridgeFieldDef(
         BridgeTypeAnnotation(
-          BridgeTypeRef(CoreTypes.list, [
-            BridgeTypeAnnotation(
-              BridgeTypeRef(
-                BridgeTypeSpec(
-                  'package:gyawun_metadata_sdk/metadata/models/image.dart',
-                  'Image',
-                ),
-                [],
-              ),
-            ),
-          ]),
+          BridgeTypeRef(CoreTypes.string, []),
+          nullable: true,
         ),
-        isStatic: false,
-      ),
-
-      'externalUri': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
         isStatic: false,
       ),
     },
@@ -120,14 +89,13 @@ class $User implements $Instance {
     bridge: false,
   );
 
-  /// Wrapper for the [User.new] constructor
+  /// Wrapper for the [Section.new] constructor
   static $Value? $new(Runtime runtime, $Value? thisValue, List<$Value?> args) {
-    return $User.wrap(
-      User(
+    return $Section.wrap(
+      Section(
         id: args[0]!.$value,
-        name: args[1]!.$value,
-        images: (args[2]?.$reified ?? const [] as List?)?.cast(),
-        externalUri: args[3]!.$value,
+        title: args[1]!.$value,
+        description: args[2]?.$value,
       ),
     );
   }
@@ -135,13 +103,13 @@ class $User implements $Instance {
   final $Instance _superclass;
 
   @override
-  final User $value;
+  final Section $value;
 
   @override
-  User get $reified => $value;
+  Section get $reified => $value;
 
-  /// Wrap a [User] in a [$User]
-  $User.wrap(this.$value) : _superclass = $Object($value);
+  /// Wrap a [Section] in a [$Section]
+  $Section.wrap(this.$value) : _superclass = $Object($value);
 
   @override
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
@@ -153,17 +121,13 @@ class $User implements $Instance {
         final _id = $value.id;
         return $String(_id);
 
-      case 'name':
-        final _name = $value.name;
-        return $String(_name);
+      case 'title':
+        final _title = $value.title;
+        return $String(_title);
 
-      case 'images':
-        final _images = $value.images;
-        return $List.view(_images, (e) => $Image.wrap(e));
-
-      case 'externalUri':
-        final _externalUri = $value.externalUri;
-        return $String(_externalUri);
+      case 'description':
+        final _description = $value.description;
+        return _description == null ? const $null() : $String(_description);
     }
     return _superclass.$getProperty(runtime, identifier);
   }

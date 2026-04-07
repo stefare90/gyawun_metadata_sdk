@@ -5,22 +5,25 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'iauth.dart';
-import 'package:dart_eval/stdlib/core.dart';
+import '../../metadata/interfaces/iauth.dart';
 import 'package:dart_eval/stdlib/async.dart';
+import 'package:dart_eval/stdlib/core.dart';
 
-/// dart_eval wrapper binding for [IAuth]
-class $IAuth implements $Instance {
+/// dart_eval bridge binding for [IAuth]
+class $IAuth$bridge extends IAuth with $Bridge<IAuth> {
+  /// Forwarded constructor for [IAuth.new]
+  $IAuth$bridge();
+
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {}
 
-  /// Compile-time type specification of [$IAuth]
+  /// Compile-time type specification of [$IAuth$bridge]
   static const $spec = BridgeTypeSpec(
     'package:gyawun_metadata_sdk/metadata/interfaces/iauth.dart',
     'IAuth',
   );
 
-  /// Compile-time type declaration of [$IAuth]
+  /// Compile-time type declaration of [$IAuth$bridge]
   static const $type = BridgeTypeRef($spec);
 
   /// Compile-time class declaration of [$IAuth]
@@ -83,70 +86,42 @@ class $IAuth implements $Instance {
     getters: {},
     setters: {},
     fields: {},
-    wrap: true,
-    bridge: false,
+    wrap: false,
+    bridge: true,
   );
 
-  final $Instance _superclass;
-
   @override
-  final IAuth $value;
-
-  @override
-  IAuth get $reified => $value;
-
-  /// Wrap a [IAuth] in a [$IAuth]
-  $IAuth.wrap(this.$value) : _superclass = $Object($value);
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
+  $Value? $bridgeGet(String identifier) {
     switch (identifier) {
       case 'authenticate':
-        return __authenticate;
-
+        return $Function((runtime, target, args) {
+          final result = super.authenticate(args[1]!.$value);
+          return $Future.wrap(result.then((e) => null));
+        });
       case 'logout':
-        return __logout;
-
+        return $Function((runtime, target, args) {
+          final result = super.logout();
+          return $Future.wrap(result.then((e) => null));
+        });
       case 'isAuthenticated':
-        return __isAuthenticated;
+        return $Function((runtime, target, args) {
+          final result = super.isAuthenticated();
+          return $Future.wrap(result.then((e) => $bool(e)));
+        });
     }
-    return _superclass.$getProperty(runtime, identifier);
-  }
-
-  static const $Function __authenticate = $Function(_authenticate);
-  static $Value? _authenticate(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IAuth;
-    final result = self.$value.authenticate(args[0]!.$value);
-    return $Future.wrap(result.then((e) => null));
-  }
-
-  static const $Function __logout = $Function(_logout);
-  static $Value? _logout(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $IAuth;
-    final result = self.$value.logout();
-    return $Future.wrap(result.then((e) => null));
-  }
-
-  static const $Function __isAuthenticated = $Function(_isAuthenticated);
-  static $Value? _isAuthenticated(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $IAuth;
-    final result = self.$value.isAuthenticated();
-    return $Future.wrap(result.then((e) => $bool(e)));
+    return null;
   }
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    return _superclass.$setProperty(runtime, identifier, value);
-  }
+  void $bridgeSet(String identifier, $Value value) {}
+
+  @override
+  Future<void> authenticate(String id) =>
+      $_invoke('authenticate', [$String(id)]);
+
+  @override
+  Future<void> logout() => $_invoke('logout', []);
+
+  @override
+  Future<bool> isAuthenticated() => $_invoke('isAuthenticated', []);
 }

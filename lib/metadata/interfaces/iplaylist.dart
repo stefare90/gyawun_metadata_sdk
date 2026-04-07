@@ -1,7 +1,9 @@
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
 import 'package:eval_annotation/eval_annotation.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/pagination.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/playlist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 
-@Bind()
+@Bind(bridge: true)
 abstract class IPlaylist {
   Future<Map<String, dynamic>> getPlaylist(String id) {
     throw Exception('Method not implemented.');

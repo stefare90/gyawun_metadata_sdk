@@ -1,7 +1,12 @@
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
 import 'package:eval_annotation/eval_annotation.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/album.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/artist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/pagination.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/playlist.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/search.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 
-@Bind()
+@Bind(bridge: true)
 abstract class ISearch {
   List<String> chips() {
     throw Exception('Method not implemented.');

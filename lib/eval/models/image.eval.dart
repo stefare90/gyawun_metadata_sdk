@@ -5,30 +5,30 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'plugin_request.dart';
+import '../../metadata/models/image.dart';
 import 'package:dart_eval/stdlib/core.dart';
 
-/// dart_eval wrapper binding for [PluginRequest]
-class $PluginRequest implements $Instance {
+/// dart_eval wrapper binding for [Image]
+class $Image implements $Instance {
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-      'package:gyawun_metadata_sdk/metadata/models/plugin_request.dart',
-      'PluginRequest.',
-      $PluginRequest.$new,
+      'package:gyawun_metadata_sdk/metadata/models/image.dart',
+      'Image.',
+      $Image.$new,
     );
   }
 
-  /// Compile-time type specification of [$PluginRequest]
+  /// Compile-time type specification of [$Image]
   static const $spec = BridgeTypeSpec(
-    'package:gyawun_metadata_sdk/metadata/models/plugin_request.dart',
-    'PluginRequest',
+    'package:gyawun_metadata_sdk/metadata/models/image.dart',
+    'Image',
   );
 
-  /// Compile-time type declaration of [$PluginRequest]
+  /// Compile-time type declaration of [$Image]
   static const $type = BridgeTypeRef($spec);
 
-  /// Compile-time class declaration of [$PluginRequest]
+  /// Compile-time class declaration of [$Image]
   static const $declaration = BridgeClassDef(
     BridgeClassType($type),
     constructors: {
@@ -43,26 +43,18 @@ class $PluginRequest implements $Instance {
             ),
 
             BridgeParameter(
-              'method',
-              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
-              true,
-            ),
-
-            BridgeParameter(
-              'headers',
+              'width',
               BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.map, [
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
-                ]),
+                BridgeTypeRef(CoreTypes.int, []),
+                nullable: true,
               ),
               true,
             ),
 
             BridgeParameter(
-              'body',
+              'height',
               BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.string, []),
+                BridgeTypeRef(CoreTypes.int, []),
                 nullable: true,
               ),
               true,
@@ -83,26 +75,13 @@ class $PluginRequest implements $Instance {
         isStatic: false,
       ),
 
-      'method': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
+      'width': BridgeFieldDef(
+        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []), nullable: true),
         isStatic: false,
       ),
 
-      'headers': BridgeFieldDef(
-        BridgeTypeAnnotation(
-          BridgeTypeRef(CoreTypes.map, [
-            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
-            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
-          ]),
-        ),
-        isStatic: false,
-      ),
-
-      'body': BridgeFieldDef(
-        BridgeTypeAnnotation(
-          BridgeTypeRef(CoreTypes.string, []),
-          nullable: true,
-        ),
+      'height': BridgeFieldDef(
+        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, []), nullable: true),
         isStatic: false,
       ),
     },
@@ -110,14 +89,13 @@ class $PluginRequest implements $Instance {
     bridge: false,
   );
 
-  /// Wrapper for the [PluginRequest.new] constructor
+  /// Wrapper for the [Image.new] constructor
   static $Value? $new(Runtime runtime, $Value? thisValue, List<$Value?> args) {
-    return $PluginRequest.wrap(
-      PluginRequest(
+    return $Image.wrap(
+      Image(
         url: args[0]!.$value,
-        method: args[1]?.$value ?? 'GET',
-        headers: (args[2]?.$reified ?? const {} as Map?)?.cast(),
-        body: args[3]?.$value,
+        width: args[1]?.$value,
+        height: args[2]?.$value,
       ),
     );
   }
@@ -125,13 +103,13 @@ class $PluginRequest implements $Instance {
   final $Instance _superclass;
 
   @override
-  final PluginRequest $value;
+  final Image $value;
 
   @override
-  PluginRequest get $reified => $value;
+  Image get $reified => $value;
 
-  /// Wrap a [PluginRequest] in a [$PluginRequest]
-  $PluginRequest.wrap(this.$value) : _superclass = $Object($value);
+  /// Wrap a [Image] in a [$Image]
+  $Image.wrap(this.$value) : _superclass = $Object($value);
 
   @override
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
@@ -143,17 +121,13 @@ class $PluginRequest implements $Instance {
         final _url = $value.url;
         return $String(_url);
 
-      case 'method':
-        final _method = $value.method;
-        return $String(_method);
+      case 'width':
+        final _width = $value.width;
+        return _width == null ? const $null() : $int(_width);
 
-      case 'headers':
-        final _headers = $value.headers;
-        return $Map.wrap(_headers);
-
-      case 'body':
-        final _body = $value.body;
-        return _body == null ? const $null() : $String(_body);
+      case 'height':
+        final _height = $value.height;
+        return _height == null ? const $null() : $int(_height);
     }
     return _superclass.$getProperty(runtime, identifier);
   }

@@ -5,24 +5,27 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'itrack.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
-import 'package:dart_eval/stdlib/core.dart';
+import '../../metadata/interfaces/itrack.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 import 'package:dart_eval/stdlib/async.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/track.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/track.eval.dart';
+import 'package:dart_eval/stdlib/core.dart';
 
-/// dart_eval wrapper binding for [ITrack]
-class $ITrack implements $Instance {
+/// dart_eval bridge binding for [ITrack]
+class $ITrack$bridge extends ITrack with $Bridge<ITrack> {
+  /// Forwarded constructor for [ITrack.new]
+  $ITrack$bridge();
+
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {}
 
-  /// Compile-time type specification of [$ITrack]
+  /// Compile-time type specification of [$ITrack$bridge]
   static const $spec = BridgeTypeSpec(
     'package:gyawun_metadata_sdk/metadata/interfaces/itrack.dart',
     'ITrack',
   );
 
-  /// Compile-time type declaration of [$ITrack]
+  /// Compile-time type declaration of [$ITrack$bridge]
   static const $type = BridgeTypeRef($spec);
 
   /// Compile-time class declaration of [$ITrack]
@@ -143,78 +146,53 @@ class $ITrack implements $Instance {
     getters: {},
     setters: {},
     fields: {},
-    wrap: true,
-    bridge: false,
+    wrap: false,
+    bridge: true,
   );
 
-  final $Instance _superclass;
-
   @override
-  final ITrack $value;
-
-  @override
-  ITrack get $reified => $value;
-
-  /// Wrap a [ITrack] in a [$ITrack]
-  $ITrack.wrap(this.$value) : _superclass = $Object($value);
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
+  $Value? $bridgeGet(String identifier) {
     switch (identifier) {
       case 'getTrack':
-        return __getTrack;
-
+        return $Function((runtime, target, args) {
+          final result = super.getTrack(args[1]!.$value);
+          return $Future.wrap(result.then((e) => $Track.wrap(e)));
+        });
       case 'save':
-        return __save;
-
+        return $Function((runtime, target, args) {
+          final result = super.save((args[1]!.$reified as List).cast());
+          return $Future.wrap(result.then((e) => null));
+        });
       case 'unsave':
-        return __unsave;
-
+        return $Function((runtime, target, args) {
+          final result = super.unsave((args[1]!.$reified as List).cast());
+          return $Future.wrap(result.then((e) => null));
+        });
       case 'radio':
-        return __radio;
+        return $Function((runtime, target, args) {
+          final result = super.radio(args[1]!.$value);
+          return $Future.wrap(
+            result.then((e) => $List.view(e, (e) => $Track.wrap(e))),
+          );
+        });
     }
-    return _superclass.$getProperty(runtime, identifier);
-  }
-
-  static const $Function __getTrack = $Function(_getTrack);
-  static $Value? _getTrack(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $ITrack;
-    final result = self.$value.getTrack(args[0]!.$value);
-    return $Future.wrap(result.then((e) => $Track.wrap(e)));
-  }
-
-  static const $Function __save = $Function(_save);
-  static $Value? _save(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $ITrack;
-    final result = self.$value.save((args[0]!.$reified as List).cast());
-    return $Future.wrap(result.then((e) => null));
-  }
-
-  static const $Function __unsave = $Function(_unsave);
-  static $Value? _unsave(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $ITrack;
-    final result = self.$value.unsave((args[0]!.$reified as List).cast());
-    return $Future.wrap(result.then((e) => null));
-  }
-
-  static const $Function __radio = $Function(_radio);
-  static $Value? _radio(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $ITrack;
-    final result = self.$value.radio(args[0]!.$value);
-    return $Future.wrap(
-      result.then((e) => $List.view(e, (e) => $Track.wrap(e))),
-    );
+    return null;
   }
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    return _superclass.$setProperty(runtime, identifier, value);
-  }
+  void $bridgeSet(String identifier, $Value value) {}
+
+  @override
+  Future<Track> getTrack(String id) => $_invoke('getTrack', [$String(id)]);
+
+  @override
+  Future<void> save(List<String> ids) =>
+      $_invoke('save', [$List.view(ids, (e) => $String(e))]);
+
+  @override
+  Future<void> unsave(List<String> ids) =>
+      $_invoke('unsave', [$List.view(ids, (e) => $String(e))]);
+
+  @override
+  Future<List<Track>> radio(String id) => $_invoke('radio', [$String(id)]);
 }

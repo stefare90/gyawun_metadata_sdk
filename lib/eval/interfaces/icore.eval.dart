@@ -5,22 +5,25 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'icore.dart';
-import 'package:dart_eval/stdlib/core.dart';
+import '../../metadata/interfaces/icore.dart';
 import 'package:dart_eval/stdlib/async.dart';
+import 'package:dart_eval/stdlib/core.dart';
 
-/// dart_eval wrapper binding for [ICore]
-class $ICore implements $Instance {
+/// dart_eval bridge binding for [ICore]
+class $ICore$bridge extends ICore with $Bridge<ICore> {
+  /// Forwarded constructor for [ICore.new]
+  $ICore$bridge();
+
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {}
 
-  /// Compile-time type specification of [$ICore]
+  /// Compile-time type specification of [$ICore$bridge]
   static const $spec = BridgeTypeSpec(
     'package:gyawun_metadata_sdk/metadata/interfaces/icore.dart',
     'ICore',
   );
 
-  /// Compile-time type declaration of [$ICore]
+  /// Compile-time type declaration of [$ICore$bridge]
   static const $type = BridgeTypeRef($spec);
 
   /// Compile-time class declaration of [$ICore]
@@ -101,72 +104,46 @@ class $ICore implements $Instance {
     getters: {},
     setters: {},
     fields: {},
-    wrap: true,
-    bridge: false,
+    wrap: false,
+    bridge: true,
   );
 
-  final $Instance _superclass;
-
   @override
-  final ICore $value;
-
-  @override
-  ICore get $reified => $value;
-
-  /// Wrap a [ICore] in a [$ICore]
-  $ICore.wrap(this.$value) : _superclass = $Object($value);
-
-  @override
-  int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
-
-  @override
-  $Value? $getProperty(Runtime runtime, String identifier) {
+  $Value? $bridgeGet(String identifier) {
     switch (identifier) {
       case 'checkUpdate':
-        return __checkUpdate;
-
+        return $Function((runtime, target, args) {
+          final result = super.checkUpdate((args[1]!.$reified as Map).cast());
+          return $Future.wrap(
+            result.then((e) => e == null ? const $null() : $Map.wrap(e)),
+          );
+        });
       case 'support':
-        return __support;
-
+        return $Function((runtime, target, args) {
+          final result = super.support();
+          return $String(result);
+        });
       case 'scrobble':
-        return __scrobble;
+        return $Function((runtime, target, args) {
+          final result = super.scrobble((args[1]!.$reified as Map).cast());
+          return $Future.wrap(result.then((e) => null));
+        });
     }
-    return _superclass.$getProperty(runtime, identifier);
-  }
-
-  static const $Function __checkUpdate = $Function(_checkUpdate);
-  static $Value? _checkUpdate(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $ICore;
-    final result = self.$value.checkUpdate((args[0]!.$reified as Map).cast());
-    return $Future.wrap(
-      result.then((e) => e == null ? const $null() : $Map.wrap(e)),
-    );
-  }
-
-  static const $Function __support = $Function(_support);
-  static $Value? _support(Runtime runtime, $Value? target, List<$Value?> args) {
-    final self = target! as $ICore;
-    final result = self.$value.support();
-    return $String(result);
-  }
-
-  static const $Function __scrobble = $Function(_scrobble);
-  static $Value? _scrobble(
-    Runtime runtime,
-    $Value? target,
-    List<$Value?> args,
-  ) {
-    final self = target! as $ICore;
-    final result = self.$value.scrobble((args[0]!.$reified as Map).cast());
-    return $Future.wrap(result.then((e) => null));
+    return null;
   }
 
   @override
-  void $setProperty(Runtime runtime, String identifier, $Value value) {
-    return _superclass.$setProperty(runtime, identifier, value);
-  }
+  void $bridgeSet(String identifier, $Value value) {}
+
+  @override
+  Future<Map<String, dynamic>?> checkUpdate(
+    Map<String, dynamic> pluginConfig,
+  ) => $_invoke('checkUpdate', [$Map.wrap(pluginConfig)]);
+
+  @override
+  String support() => $_invoke('support', []);
+
+  @override
+  Future<void> scrobble(Map<String, dynamic> details) =>
+      $_invoke('scrobble', [$Map.wrap(details)]);
 }

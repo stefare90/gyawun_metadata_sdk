@@ -5,30 +5,30 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'section.dart';
+import '../../metadata/models/plugin_response.dart';
 import 'package:dart_eval/stdlib/core.dart';
 
-/// dart_eval wrapper binding for [Section]
-class $Section implements $Instance {
+/// dart_eval wrapper binding for [PluginResponse]
+class $PluginResponse implements $Instance {
   /// Configure this class for use in a [Runtime]
   static void configureForRuntime(Runtime runtime) {
     runtime.registerBridgeFunc(
-      'package:gyawun_metadata_sdk/metadata/models/section.dart',
-      'Section.',
-      $Section.$new,
+      'package:gyawun_metadata_sdk/metadata/models/plugin_response.dart',
+      'PluginResponse.',
+      $PluginResponse.$new,
     );
   }
 
-  /// Compile-time type specification of [$Section]
+  /// Compile-time type specification of [$PluginResponse]
   static const $spec = BridgeTypeSpec(
-    'package:gyawun_metadata_sdk/metadata/models/section.dart',
-    'Section',
+    'package:gyawun_metadata_sdk/metadata/models/plugin_response.dart',
+    'PluginResponse',
   );
 
-  /// Compile-time type declaration of [$Section]
+  /// Compile-time type declaration of [$PluginResponse]
   static const $type = BridgeTypeRef($spec);
 
-  /// Compile-time class declaration of [$Section]
+  /// Compile-time class declaration of [$PluginResponse]
   static const $declaration = BridgeClassDef(
     BridgeClassType($type),
     constructors: {
@@ -37,24 +37,15 @@ class $Section implements $Instance {
           returns: BridgeTypeAnnotation($type),
           namedParams: [
             BridgeParameter(
-              'id',
-              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
+              'statusCode',
+              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, [])),
               false,
             ),
 
             BridgeParameter(
-              'title',
+              'body',
               BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
               false,
-            ),
-
-            BridgeParameter(
-              'description',
-              BridgeTypeAnnotation(
-                BridgeTypeRef(CoreTypes.string, []),
-                nullable: true,
-              ),
-              true,
             ),
           ],
           params: [],
@@ -67,21 +58,13 @@ class $Section implements $Instance {
     getters: {},
     setters: {},
     fields: {
-      'id': BridgeFieldDef(
-        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
+      'statusCode': BridgeFieldDef(
+        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.int, [])),
         isStatic: false,
       ),
 
-      'title': BridgeFieldDef(
+      'body': BridgeFieldDef(
         BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
-        isStatic: false,
-      ),
-
-      'description': BridgeFieldDef(
-        BridgeTypeAnnotation(
-          BridgeTypeRef(CoreTypes.string, []),
-          nullable: true,
-        ),
         isStatic: false,
       ),
     },
@@ -89,27 +72,23 @@ class $Section implements $Instance {
     bridge: false,
   );
 
-  /// Wrapper for the [Section.new] constructor
+  /// Wrapper for the [PluginResponse.new] constructor
   static $Value? $new(Runtime runtime, $Value? thisValue, List<$Value?> args) {
-    return $Section.wrap(
-      Section(
-        id: args[0]!.$value,
-        title: args[1]!.$value,
-        description: args[2]?.$value,
-      ),
+    return $PluginResponse.wrap(
+      PluginResponse(statusCode: args[0]!.$value, body: args[1]!.$value),
     );
   }
 
   final $Instance _superclass;
 
   @override
-  final Section $value;
+  final PluginResponse $value;
 
   @override
-  Section get $reified => $value;
+  PluginResponse get $reified => $value;
 
-  /// Wrap a [Section] in a [$Section]
-  $Section.wrap(this.$value) : _superclass = $Object($value);
+  /// Wrap a [PluginResponse] in a [$PluginResponse]
+  $PluginResponse.wrap(this.$value) : _superclass = $Object($value);
 
   @override
   int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
@@ -117,17 +96,13 @@ class $Section implements $Instance {
   @override
   $Value? $getProperty(Runtime runtime, String identifier) {
     switch (identifier) {
-      case 'id':
-        final _id = $value.id;
-        return $String(_id);
+      case 'statusCode':
+        final _statusCode = $value.statusCode;
+        return $int(_statusCode);
 
-      case 'title':
-        final _title = $value.title;
-        return $String(_title);
-
-      case 'description':
-        final _description = $value.description;
-        return _description == null ? const $null() : $String(_description);
+      case 'body':
+        final _body = $value.body;
+        return $String(_body);
     }
     return _superclass.$getProperty(runtime, identifier);
   }

@@ -5,11 +5,12 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
-import 'track.dart';
-import 'package:gyawun_metadata_sdk/metadata/models.dart';
+import '../../metadata/models/track.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/album.dart';
+import 'package:gyawun_metadata_sdk/metadata/models/artist.dart';
 import 'package:dart_eval/stdlib/core.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/artist.eval.dart';
-import 'package:gyawun_metadata_sdk/metadata/models/album.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/artist.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/models/album.eval.dart';
 
 /// dart_eval wrapper binding for [Track]
 class $Track implements $Instance {
