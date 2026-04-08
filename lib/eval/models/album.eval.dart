@@ -132,7 +132,15 @@ class $Album implements $Instance {
               'artists',
               BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.list, [
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
+                  BridgeTypeAnnotation(
+                    BridgeTypeRef(
+                      BridgeTypeSpec(
+                        'package:gyawun_metadata_sdk/metadata/models/artist.dart',
+                        'Artist',
+                      ),
+                      [],
+                    ),
+                  ),
                 ]),
               ),
               false,
@@ -142,7 +150,15 @@ class $Album implements $Instance {
               'images',
               BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.list, [
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
+                  BridgeTypeAnnotation(
+                    BridgeTypeRef(
+                      BridgeTypeSpec(
+                        'package:gyawun_metadata_sdk/metadata/models/image.dart',
+                        'Image',
+                      ),
+                      [],
+                    ),
+                  ),
                 ]),
               ),
               true,
@@ -310,8 +326,8 @@ class $Album implements $Instance {
       Album(
         id: args[0]!.$value,
         name: args[1]!.$value,
-        artists: (args[2]!.$reified as List).cast(),
-        images: (args[3]?.$reified ?? const [] as List?)?.cast(),
+        artists: (args[2]!.$reified as List).cast<Artist>(),
+        images: (args[3]?.$reified as List?)?.cast<Image>() ?? const [],
         releaseDate: args[4]!.$value,
         externalUri: args[5]!.$value,
         totalTracks: args[6]!.$value,

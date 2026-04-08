@@ -162,7 +162,7 @@ class $Artist implements $Instance {
         id: args[0]!.$value,
         name: args[1]!.$value,
         externalUri: args[2]!.$value,
-        images: (args[3]?.$reified ?? const [] as List?)?.cast(),
+        images: (args[3]?.$reified as List?)?.cast<Image>() ?? const [],
         genres: (args[4]?.$reified as List?)?.cast(),
         followers: args[5]?.$value,
       ),

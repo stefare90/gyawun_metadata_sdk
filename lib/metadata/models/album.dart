@@ -21,15 +21,13 @@ class Album {
   Album({
     required this.id,
     required this.name,
-    required List artists,
-    List images = const [],
+    required this.artists,
+    this.images = const [],
     required this.releaseDate,
     required this.externalUri,
     required this.totalTracks,
     required this.albumType,
     this.recordLabel,
     List? genres,
-  }) : artists = List<Artist>.from(artists),
-       images = List<Image>.from(images),
-       genres = genres?.cast<String>();
+  }) : genres = genres?.cast<String>();
 }
