@@ -16,7 +16,7 @@ class Track {
     required this.id,
     required this.name,
     required this.externalUri,
-    this.artists = const [],
+    required this.artists,
     required this.album,
     required this.durationMs,
     this.path,

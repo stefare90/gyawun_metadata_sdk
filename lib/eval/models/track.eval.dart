@@ -73,7 +73,7 @@ class $Track implements $Instance {
                   ),
                 ]),
               ),
-              true,
+              false,
             ),
 
             BridgeParameter(
@@ -184,7 +184,7 @@ class $Track implements $Instance {
         id: args[0]!.$value,
         name: args[1]!.$value,
         externalUri: args[2]!.$value,
-        artists: (args[3]?.$reified ?? const [] as List?)?.cast(),
+        artists: (args[3]!.$reified as List).cast<Artist>(),
         album: args[4]!.$value,
         durationMs: args[5]!.$value,
         path: args[6]?.$value,

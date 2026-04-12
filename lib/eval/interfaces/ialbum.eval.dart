@@ -262,16 +262,14 @@ class $IAlbum$bridge extends IAlbum with $Bridge<IAlbum> {
     String id, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('tracks', [$String(id), $int(offset), $int(limit)]);
-
-  @override
-  Future<PaginatedResult<Album>> releases({
-    int offset = 0,
-    int limit = 20,
   }) async {
-    final result = await $_invoke('releases', [$int(offset), $int(limit)]);
-    return PaginatedResult<Album>(
-      items: (result.items as List).cast<Album>(),
+    final result = await $_invoke('tracks', [
+      $String(id),
+      $int(offset),
+      $int(limit),
+    ]);
+    return PaginatedResult<Track>(
+      items: (result.items as List).cast<Track>(),
       total: result.total,
       offset: result.offset,
       limit: result.limit,
