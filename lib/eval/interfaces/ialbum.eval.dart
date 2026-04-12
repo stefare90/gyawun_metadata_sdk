@@ -236,14 +236,6 @@ class $IAlbum$bridge extends IAlbum with $Bridge<IAlbum> {
           );
           return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
         });
-      case 'releases':
-        return $Function((runtime, target, args) {
-          final result = super.releases(
-            offset: args[1]?.$value ?? 0,
-            limit: args[2]?.$value ?? 20,
-          );
-          return $Future.wrap(result.then((e) => $PaginatedResult.wrap(e)));
-        });
       case 'save':
         return $Function((runtime, target, args) {
           final result = super.save((args[1]!.$reified as List).cast());
