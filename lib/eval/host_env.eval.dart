@@ -7,8 +7,12 @@ import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
 import '../metadata/host_env.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/inetwork_service.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/istorage_service.dart';
+import 'package:gyawun_metadata_sdk/metadata/interfaces/iui_service.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:gyawun_metadata_sdk/eval/interfaces/inetwork_service.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/istorage_service.eval.dart';
+import 'package:gyawun_metadata_sdk/eval/interfaces/iui_service.eval.dart';
 
 /// dart_eval wrapper binding for [HostEnv]
 class $HostEnv implements $Instance {
@@ -51,6 +55,34 @@ class $HostEnv implements $Instance {
               ),
               false,
             ),
+
+            BridgeParameter(
+              'storage',
+              BridgeTypeAnnotation(
+                BridgeTypeRef(
+                  BridgeTypeSpec(
+                    'package:gyawun_metadata_sdk/metadata/interfaces/istorage_service.dart',
+                    'IStorageService',
+                  ),
+                  [],
+                ),
+              ),
+              false,
+            ),
+
+            BridgeParameter(
+              'ui',
+              BridgeTypeAnnotation(
+                BridgeTypeRef(
+                  BridgeTypeSpec(
+                    'package:gyawun_metadata_sdk/metadata/interfaces/iui_service.dart',
+                    'IUIService',
+                  ),
+                  [],
+                ),
+              ),
+              false,
+            ),
           ],
           params: [],
         ),
@@ -74,6 +106,32 @@ class $HostEnv implements $Instance {
         ),
         isStatic: false,
       ),
+
+      'storage': BridgeFieldDef(
+        BridgeTypeAnnotation(
+          BridgeTypeRef(
+            BridgeTypeSpec(
+              'package:gyawun_metadata_sdk/metadata/interfaces/istorage_service.dart',
+              'IStorageService',
+            ),
+            [],
+          ),
+        ),
+        isStatic: false,
+      ),
+
+      'ui': BridgeFieldDef(
+        BridgeTypeAnnotation(
+          BridgeTypeRef(
+            BridgeTypeSpec(
+              'package:gyawun_metadata_sdk/metadata/interfaces/iui_service.dart',
+              'IUIService',
+            ),
+            [],
+          ),
+        ),
+        isStatic: false,
+      ),
     },
     wrap: true,
     bridge: false,
@@ -81,7 +139,13 @@ class $HostEnv implements $Instance {
 
   /// Wrapper for the [HostEnv.new] constructor
   static $Value? $new(Runtime runtime, $Value? thisValue, List<$Value?> args) {
-    return $HostEnv.wrap(HostEnv(network: args[0]!.$value));
+    return $HostEnv.wrap(
+      HostEnv(
+        network: args[0]!.$value,
+        storage: args[1]!.$value,
+        ui: args[2]!.$value,
+      ),
+    );
   }
 
   final $Instance _superclass;
@@ -104,6 +168,14 @@ class $HostEnv implements $Instance {
       case 'network':
         final _network = $value.network;
         return $INetworkService.wrap(_network);
+
+      case 'storage':
+        final _storage = $value.storage;
+        return $IStorageService.wrap(_storage);
+
+      case 'ui':
+        final _ui = $value.ui;
+        return $IUIService.wrap(_ui);
     }
     return _superclass.$getProperty(runtime, identifier);
   }

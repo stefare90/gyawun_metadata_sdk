@@ -2,7 +2,7 @@ import 'package:eval_annotation/eval_annotation.dart';
 
 @Bind(bridge: true)
 abstract class IAuth {
-  Future<void> authenticate(String id) {
+  Future<void> authenticate() {
     throw Exception('Method not implemented.');
   }
 

@@ -14,8 +14,14 @@ class $IAuth$bridge extends IAuth with $Bridge<IAuth> {
   /// Forwarded constructor for [IAuth.new]
   $IAuth$bridge();
 
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $IAuth$bridge();
+  }
+
   /// Configure this class for use in a [Runtime]
-  static void configureForRuntime(Runtime runtime) {}
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($spec.library, 'IAuth.', $new, isBridge: true);
+  }
 
   /// Compile-time type specification of [$IAuth$bridge]
   static const $spec = BridgeTypeSpec(
@@ -49,13 +55,7 @@ class $IAuth$bridge extends IAuth with $Bridge<IAuth> {
             ]),
           ),
           namedParams: [],
-          params: [
-            BridgeParameter(
-              'id',
-              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
-              false,
-            ),
-          ],
+          params: [],
         ),
       ),
 
@@ -95,7 +95,7 @@ class $IAuth$bridge extends IAuth with $Bridge<IAuth> {
     switch (identifier) {
       case 'authenticate':
         return $Function((runtime, target, args) {
-          final result = super.authenticate(args[1]!.$value);
+          final result = super.authenticate();
           return $Future.wrap(result.then((e) => null));
         });
       case 'logout':
@@ -116,12 +116,17 @@ class $IAuth$bridge extends IAuth with $Bridge<IAuth> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  Future<void> authenticate(String id) =>
-      $_invoke('authenticate', [$String(id)]);
+  Future<void> authenticate() => $_invoke('authenticate', []);
 
   @override
   Future<void> logout() => $_invoke('logout', []);
 
   @override
-  Future<bool> isAuthenticated() => $_invoke('isAuthenticated', []);
+  Future<bool> isAuthenticated() async {
+    final result = await $_invoke('isAuthenticated', []);
+    if (result is $Value) {
+      return result.$value as bool;
+    }
+    return result as bool;
+  }
 }
