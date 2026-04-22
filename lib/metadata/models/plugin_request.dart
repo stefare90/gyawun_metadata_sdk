@@ -4,7 +4,7 @@ import 'package:eval_annotation/eval_annotation.dart';
 class PluginRequest {
   final String url;
   final String method;
-  final Map headers;
+  final Map<String, String> headers;
   final String? body;
 
   PluginRequest({

@@ -52,8 +52,8 @@ class $PluginRequest implements $Instance {
               'headers',
               BridgeTypeAnnotation(
                 BridgeTypeRef(CoreTypes.map, [
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
-                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
+                  BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
                 ]),
               ),
               true,
@@ -91,8 +91,8 @@ class $PluginRequest implements $Instance {
       'headers': BridgeFieldDef(
         BridgeTypeAnnotation(
           BridgeTypeRef(CoreTypes.map, [
-            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
-            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.dynamic)),
+            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
+            BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
           ]),
         ),
         isStatic: false,
@@ -112,11 +112,20 @@ class $PluginRequest implements $Instance {
 
   /// Wrapper for the [PluginRequest.new] constructor
   static $Value? $new(Runtime runtime, $Value? thisValue, List<$Value?> args) {
+    final dynamic rawHeaders = args[2]?.$value;
+    final Map<String, String> finalHeaders = {};
+    if (rawHeaders != null && rawHeaders is Map) {
+      rawHeaders.forEach((k, v) {
+        final String key = (k is $Value) ? k.$value.toString() : k.toString();
+        final String value = (v is $Value) ? v.$value.toString() : v.toString();
+        finalHeaders[key] = value;
+      });
+    }
     return $PluginRequest.wrap(
       PluginRequest(
         url: args[0]!.$value,
-        method: args[1]?.$value ?? 'GET',
-        headers: (args[2]?.$reified ?? const {} as Map?)?.cast(),
+        method: args[1]!.$value,
+        headers: finalHeaders,
         body: args[3]?.$value,
       ),
     );

@@ -20,8 +20,14 @@ class $IArtist$bridge extends IArtist with $Bridge<IArtist> {
   /// Forwarded constructor for [IArtist.new]
   $IArtist$bridge();
 
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $IArtist$bridge();
+  }
+
   /// Configure this class for use in a [Runtime]
-  static void configureForRuntime(Runtime runtime) {}
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($spec.library, 'IArtist.', $new, isBridge: true);
+  }
 
   /// Compile-time type specification of [$IArtist$bridge]
   static const $spec = BridgeTypeSpec(

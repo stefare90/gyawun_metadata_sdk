@@ -19,8 +19,19 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
   /// Forwarded constructor for [IPlaylist.new]
   $IPlaylist$bridge();
 
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $IPlaylist$bridge();
+  }
+
   /// Configure this class for use in a [Runtime]
-  static void configureForRuntime(Runtime runtime) {}
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc(
+      $spec.library,
+      'IPlaylist.',
+      $new,
+      isBridge: true,
+    );
+  }
 
   /// Compile-time type specification of [$IPlaylist$bridge]
   static const $spec = BridgeTypeSpec(

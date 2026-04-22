@@ -20,8 +20,14 @@ class $IUser$bridge extends IUser with $Bridge<IUser> {
   /// Forwarded constructor for [IUser.new]
   $IUser$bridge();
 
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $IUser$bridge();
+  }
+
   /// Configure this class for use in a [Runtime]
-  static void configureForRuntime(Runtime runtime) {}
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($spec.library, 'IUser.', $new, isBridge: true);
+  }
 
   /// Compile-time type specification of [$IUser$bridge]
   static const $spec = BridgeTypeSpec(
@@ -287,7 +293,25 @@ class $IUser$bridge extends IUser with $Bridge<IUser> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  Future<Map<String, dynamic>> me() => $_invoke('me', []);
+  Future<Map<String, dynamic>> me() async {
+    final result = await $_invoke('me', []);
+    if (result == null) return {'user_id': null};
+    final Map rawData = (result is $Value)
+        ? (result.$value as Map)
+        : (result as Map);
+    final Map<String, dynamic> finalMap = {};
+    rawData.forEach((k, v) {
+      final String key = (k is $Value) ? k.$value.toString() : k.toString();
+      dynamic value;
+      if (v is $Value) {
+        value = v.$value;
+      } else {
+        value = v;
+      }
+      finalMap[key] = value;
+    });
+    return finalMap;
+  }
 
   @override
   Future<PaginatedResult<Track>> savedTracks({

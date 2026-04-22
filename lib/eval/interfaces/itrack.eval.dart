@@ -16,8 +16,14 @@ class $ITrack$bridge extends ITrack with $Bridge<ITrack> {
   /// Forwarded constructor for [ITrack.new]
   $ITrack$bridge();
 
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $ITrack$bridge();
+  }
+
   /// Configure this class for use in a [Runtime]
-  static void configureForRuntime(Runtime runtime) {}
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($spec.library, 'ITrack.', $new, isBridge: true);
+  }
 
   /// Compile-time type specification of [$ITrack$bridge]
   static const $spec = BridgeTypeSpec(

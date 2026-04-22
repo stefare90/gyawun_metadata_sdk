@@ -22,8 +22,14 @@ class $ISearch$bridge extends ISearch with $Bridge<ISearch> {
   /// Forwarded constructor for [ISearch.new]
   $ISearch$bridge();
 
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $ISearch$bridge();
+  }
+
   /// Configure this class for use in a [Runtime]
-  static void configureForRuntime(Runtime runtime) {}
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($spec.library, 'ISearch.', $new, isBridge: true);
+  }
 
   /// Compile-time type specification of [$ISearch$bridge]
   static const $spec = BridgeTypeSpec(

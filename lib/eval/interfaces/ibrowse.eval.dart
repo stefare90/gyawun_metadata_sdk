@@ -17,8 +17,14 @@ class $IBrowse$bridge extends IBrowse with $Bridge<IBrowse> {
   /// Forwarded constructor for [IBrowse.new]
   $IBrowse$bridge();
 
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $IBrowse$bridge();
+  }
+
   /// Configure this class for use in a [Runtime]
-  static void configureForRuntime(Runtime runtime) {}
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($spec.library, 'IBrowse.', $new, isBridge: true);
+  }
 
   /// Compile-time type specification of [$IBrowse$bridge]
   static const $spec = BridgeTypeSpec(

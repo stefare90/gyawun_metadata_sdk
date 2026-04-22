@@ -14,8 +14,14 @@ class $ICore$bridge extends ICore with $Bridge<ICore> {
   /// Forwarded constructor for [ICore.new]
   $ICore$bridge();
 
+  static $Value? $new(Runtime runtime, $Value? target, List<$Value?> args) {
+    return $ICore$bridge();
+  }
+
   /// Configure this class for use in a [Runtime]
-  static void configureForRuntime(Runtime runtime) {}
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeFunc($spec.library, 'ICore.', $new, isBridge: true);
+  }
 
   /// Compile-time type specification of [$ICore$bridge]
   static const $spec = BridgeTypeSpec(
