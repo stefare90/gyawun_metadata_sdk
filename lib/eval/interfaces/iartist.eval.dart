@@ -327,28 +327,70 @@ class $IArtist$bridge extends IArtist with $Bridge<IArtist> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  Future<Artist> getArtist(String id) => $_invoke('getArtist', [$String(id)]);
+  Future<Artist> getArtist(String id) async {
+    final result = await $_invoke('getArtist', [$String(id)]);
+    return result as Artist;
+  }
 
   @override
   Future<PaginatedResult<Track>> topTracks(
     String id, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('topTracks', [$String(id), $int(offset), $int(limit)]);
+  }) async {
+    final result = await $_invoke('topTracks', [
+      $String(id),
+      $int(offset),
+      $int(limit),
+    ]);
+    final raw = result as PaginatedResult;
+    return PaginatedResult<Track>(
+      items: raw.items.cast<Track>(),
+      total: raw.total,
+      offset: raw.offset,
+      limit: raw.limit,
+    );
+  }
 
   @override
   Future<PaginatedResult<Album>> albums(
     String id, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('albums', [$String(id), $int(offset), $int(limit)]);
+  }) async {
+    final result = await $_invoke('albums', [
+      $String(id),
+      $int(offset),
+      $int(limit),
+    ]);
+    final raw = result as PaginatedResult;
+    return PaginatedResult<Album>(
+      items: raw.items.cast<Album>(),
+      total: raw.total,
+      offset: raw.offset,
+      limit: raw.limit,
+    );
+  }
 
   @override
   Future<PaginatedResult<Artist>> related(
     String id, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('related', [$String(id), $int(offset), $int(limit)]);
+  }) async {
+    final result = await $_invoke('related', [
+      $String(id),
+      $int(offset),
+      $int(limit),
+    ]);
+    final raw = result as PaginatedResult;
+    return PaginatedResult<Artist>(
+      items: raw.items.cast<Artist>(),
+      total: raw.total,
+      offset: raw.offset,
+      limit: raw.limit,
+    );
+  }
 
   @override
   Future<void> save(List<String> ids) =>
