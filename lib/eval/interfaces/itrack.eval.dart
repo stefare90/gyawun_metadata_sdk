@@ -189,16 +189,24 @@ class $ITrack$bridge extends ITrack with $Bridge<ITrack> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  Future<Track> getTrack(String id) => $_invoke('getTrack', [$String(id)]);
+  Future<Track> getTrack(String id) async {
+    final result = await $_invoke('getTrack', [$String(id)]);
+    return result as Track;
+  }
 
   @override
-  Future<void> save(List<String> ids) =>
-      $_invoke('save', [$List.view(ids, (e) => $String(e))]);
+  Future<void> save(List<String> ids) async {
+    await $_invoke('save', [$List.view(ids, (e) => $String(e))]);
+  }
 
   @override
-  Future<void> unsave(List<String> ids) =>
-      $_invoke('unsave', [$List.view(ids, (e) => $String(e))]);
+  Future<void> unsave(List<String> ids) async {
+    await $_invoke('unsave', [$List.view(ids, (e) => $String(e))]);
+  }
 
   @override
-  Future<List<Track>> radio(String id) => $_invoke('radio', [$String(id)]);
+  Future<List<Track>> radio(String id) async {
+    final result = await $_invoke('radio', [$String(id)]);
+    return (result as List).cast<Track>();
+  }
 }

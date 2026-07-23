@@ -126,7 +126,7 @@ class $User implements $Instance {
       User(
         id: args[0]!.$value,
         name: args[1]!.$value,
-        images: (args[2]?.$reified ?? const [] as List?)?.cast(),
+        images: (args[2]?.$reified as List?)?.cast<Image>() ?? const [],
         externalUri: args[3]!.$value,
       ),
     );
