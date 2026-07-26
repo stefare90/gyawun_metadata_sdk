@@ -165,13 +165,37 @@ class $IBrowse$bridge extends IBrowse with $Bridge<IBrowse> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  Future<PaginatedResult<Section>> sections({int offset = 0, int limit = 20}) =>
-      $_invoke('sections', [$int(offset), $int(limit)]);
+  Future<PaginatedResult<Section>> sections({
+    int offset = 0,
+    int limit = 20,
+  }) async {
+    final result = await $_invoke('sections', [$int(offset), $int(limit)]);
+    final raw = result as PaginatedResult;
+    return PaginatedResult<Section>(
+      items: raw.items.cast<Section>(),
+      total: raw.total,
+      offset: raw.offset,
+      limit: raw.limit,
+    );
+  }
 
   @override
   Future<PaginatedResult<dynamic>> sectionItems(
     String id, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('sectionItems', [$String(id), $int(offset), $int(limit)]);
+  }) async {
+    final result = await $_invoke('sectionItems', [
+      $String(id),
+      $int(offset),
+      $int(limit),
+    ]);
+    final raw = result as PaginatedResult;
+    return PaginatedResult<dynamic>(
+      items: raw.items,
+      total: raw.total,
+      offset: raw.offset,
+      limit: raw.limit,
+    );
+  }
 }

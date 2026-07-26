@@ -449,15 +449,48 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  Future<Map<String, dynamic>> getPlaylist(String id) =>
-      $_invoke('getPlaylist', [$String(id)]);
+  Future<Map<String, dynamic>> getPlaylist(String id) async {
+    final result = await $_invoke('getPlaylist', [$String(id)]);
+    if (result == null) return {};
+    dynamic unbox(dynamic val) {
+      if (val is $Value) {
+        return unbox(val.$value);
+      } else if (val is Map) {
+        final Map<String, dynamic> resultMap = {};
+        val.forEach((k, v) {
+          final String key = (k is $Value) ? k.$value.toString() : k.toString();
+          resultMap[key] = unbox(v);
+        });
+        return resultMap;
+      } else if (val is List) {
+        return val.map((item) => unbox(item)).toList();
+      }
+      return val;
+    }
+
+    final Map unboxedMap = unbox(result) as Map;
+    return unboxedMap.cast<String, dynamic>();
+  }
 
   @override
   Future<PaginatedResult<Track>> tracks(
     String id, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('tracks', [$String(id), $int(offset), $int(limit)]);
+  }) async {
+    final result = await $_invoke('tracks', [
+      $String(id),
+      $int(offset),
+      $int(limit),
+    ]);
+    final raw = result as PaginatedResult;
+    return PaginatedResult<Track>(
+      items: raw.items.cast<Track>(),
+      total: raw.total,
+      offset: raw.offset,
+      limit: raw.limit,
+    );
+  }
 
   @override
   Future<Playlist?> createPlaylist(
@@ -466,13 +499,16 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
     String? description,
     bool? public_,
     bool? collaborative,
-  }) => $_invoke('createPlaylist', [
-    $String(userId),
-    $String(name),
-    description == null ? const $null() : $String(description),
-    public_ == null ? const $null() : $bool(public_),
-    collaborative == null ? const $null() : $bool(collaborative),
-  ]);
+  }) async {
+    final result = await $_invoke('createPlaylist', [
+      $String(userId),
+      $String(name),
+      description == null ? const $null() : $String(description),
+      public_ == null ? const $null() : $bool(public_),
+      collaborative == null ? const $null() : $bool(collaborative),
+    ]);
+    return result as Playlist?;
+  }
 
   @override
   Future<void> updatePlaylist(
@@ -481,41 +517,49 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
     String? description,
     bool? public_,
     bool? collaborative,
-  }) => $_invoke('updatePlaylist', [
-    $String(playlistId),
-    name == null ? const $null() : $String(name),
-    description == null ? const $null() : $String(description),
-    public_ == null ? const $null() : $bool(public_),
-    collaborative == null ? const $null() : $bool(collaborative),
-  ]);
+  }) async {
+    await $_invoke('updatePlaylist', [
+      $String(playlistId),
+      name == null ? const $null() : $String(name),
+      description == null ? const $null() : $String(description),
+      public_ == null ? const $null() : $bool(public_),
+      collaborative == null ? const $null() : $bool(collaborative),
+    ]);
+  }
 
   @override
-  Future<void> deletePlaylist(String playlistId) =>
-      $_invoke('deletePlaylist', [$String(playlistId)]);
+  Future<void> deletePlaylist(String playlistId) async {
+    await $_invoke('deletePlaylist', [$String(playlistId)]);
+  }
 
   @override
   Future<void> addTracks(
     String playlistId,
     List<String> trackIds, {
     int? position,
-  }) => $_invoke('addTracks', [
-    $String(playlistId),
-    $List.view(trackIds, (e) => $String(e)),
-    position == null ? const $null() : $int(position),
-  ]);
+  }) async {
+    await $_invoke('addTracks', [
+      $String(playlistId),
+      $List.view(trackIds, (e) => $String(e)),
+      position == null ? const $null() : $int(position),
+    ]);
+  }
 
   @override
-  Future<void> removeTracks(String playlistId, List<String> trackIds) =>
-      $_invoke('removeTracks', [
-        $String(playlistId),
-        $List.view(trackIds, (e) => $String(e)),
-      ]);
+  Future<void> removeTracks(String playlistId, List<String> trackIds) async {
+    await $_invoke('removeTracks', [
+      $String(playlistId),
+      $List.view(trackIds, (e) => $String(e)),
+    ]);
+  }
 
   @override
-  Future<void> save(String playlistId) =>
-      $_invoke('save', [$String(playlistId)]);
+  Future<void> save(String playlistId) async {
+    await $_invoke('save', [$String(playlistId)]);
+  }
 
   @override
-  Future<void> unsave(String playlistId) =>
-      $_invoke('unsave', [$String(playlistId)]);
+  Future<void> unsave(String playlistId) async {
+    await $_invoke('unsave', [$String(playlistId)]);
+  }
 }
