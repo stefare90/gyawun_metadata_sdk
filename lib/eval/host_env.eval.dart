@@ -9,6 +9,7 @@ import '../metadata/host_env.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/inetwork_service.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/istorage_service.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/iui_service.dart';
+import 'package:gyawun_metadata_sdk/src/version.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:gyawun_metadata_sdk/eval/interfaces/inetwork_service.eval.dart';
 import 'package:gyawun_metadata_sdk/eval/interfaces/istorage_service.eval.dart';
@@ -22,6 +23,12 @@ class $HostEnv implements $Instance {
       'package:gyawun_metadata_sdk/metadata/host_env.dart',
       'HostEnv.',
       $HostEnv.$new,
+    );
+
+    runtime.registerBridgeFunc(
+      'package:gyawun_metadata_sdk/metadata/host_env.dart',
+      'HostEnv.sdkVersion*g',
+      $HostEnv.$sdkVersion,
     );
   }
 
@@ -94,6 +101,11 @@ class $HostEnv implements $Instance {
     getters: {},
     setters: {},
     fields: {
+      'sdkVersion': BridgeFieldDef(
+        BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
+        isStatic: true,
+      ),
+
       'network': BridgeFieldDef(
         BridgeTypeAnnotation(
           BridgeTypeRef(
@@ -146,6 +158,16 @@ class $HostEnv implements $Instance {
         ui: args[2]!.$value,
       ),
     );
+  }
+
+  /// Wrapper for the [HostEnv.sdkVersion] getter
+  static $Value? $sdkVersion(
+    Runtime runtime,
+    $Value? target,
+    List<$Value?> args,
+  ) {
+    final value = HostEnv.sdkVersion;
+    return $String(value);
   }
 
   final $Instance _superclass;
