@@ -5,7 +5,7 @@ import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 
 @Bind(bridge: true)
 abstract class IPlaylist {
-  Future<Map<String, dynamic>> getPlaylist(String id) {
+  Future<Playlist> getPlaylist(String id) {
     throw Exception('Method not implemented.');
   }
 

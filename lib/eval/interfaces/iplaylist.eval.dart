@@ -374,7 +374,7 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
       case 'getPlaylist':
         return $Function((runtime, target, args) {
           final result = super.getPlaylist(args[1]!.$value);
-          return $Future.wrap(result.then((e) => $Map.wrap(e)));
+          return $Future.wrap(result.then((e) => $Playlist.wrap(e)));
         });
       case 'tracks':
         return $Function((runtime, target, args) {
@@ -449,27 +449,9 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  Future<Map<String, dynamic>> getPlaylist(String id) async {
+  Future<Playlist> getPlaylist(String id) async {
     final result = await $_invoke('getPlaylist', [$String(id)]);
-    if (result == null) return {};
-    dynamic unbox(dynamic val) {
-      if (val is $Value) {
-        return unbox(val.$value);
-      } else if (val is Map) {
-        final Map<String, dynamic> resultMap = {};
-        val.forEach((k, v) {
-          final String key = (k is $Value) ? k.$value.toString() : k.toString();
-          resultMap[key] = unbox(v);
-        });
-        return resultMap;
-      } else if (val is List) {
-        return val.map((item) => unbox(item)).toList();
-      }
-      return val;
-    }
-
-    final Map unboxedMap = unbox(result) as Map;
-    return unboxedMap.cast<String, dynamic>();
+    return result as Playlist;
   }
 
   @override
