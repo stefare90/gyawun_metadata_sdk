@@ -101,12 +101,3 @@ The ecosystem follows a three-tier architecture:
 *   **Host (Flutter App)**: Injects real-world implementations (like HTTP clients) into the `MetadataHost`.
 *   **SDK (This package)**: Defines the rules of engagement and provides common data types.
 *   **Plugin (.evc Bytecode)**: Implements specific logic (e.g., MusicBrainz) by importing the SDK.
-
-
----
-
-## 📄 Additional Information
-
-*   **Repository**: [Link to repository]
-*   **SDK Version**: 1.0.0
-*   **License**: MIT
