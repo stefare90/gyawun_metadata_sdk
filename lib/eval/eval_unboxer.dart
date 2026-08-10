@@ -5,15 +5,18 @@ dynamic unboxValue(dynamic raw) {
   dynamic current = raw;
   while (current is $Value) {
     final val = current.$value;
-    if (val == null) break;
+    if (val == null || identical(val, current)) break;
     current = val;
   }
   if (current is $Instance) {
-    current = current.$reified;
+    final reified = current.$reified;
+    if (!identical(reified, current)) {
+      current = reified;
+    }
   }
   while (current is $Value) {
     final val = current.$value;
-    if (val == null) break;
+    if (val == null || identical(val, current)) break;
     current = val;
   }
   return current;
