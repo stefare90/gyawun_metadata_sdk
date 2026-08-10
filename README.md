@@ -19,6 +19,12 @@ Because this SDK acts as a bridge between compiled code (Flutter) and interprete
 
 Questa versione è stata ottimizzata per essere ancora più chiara e strutturata come una guida di **manutenzione** professionale. Ho raggruppato i concetti per "fase" e reso le istruzioni sui fix manuali più immediate con l'uso di tabelle/elenchi puntati tecnici.
 
+### 🏷️ Updating SDK Version
+1. Update the `version` field in `pubspec.yaml`.
+2. Generate `lib/metadata/version.dart`:
+   ```bash
+   dart run build_runner build --delete-conflicting-outputs
+   
 ### 🛠 Generating & Managing Bindings (`dart_eval`)
 
 To enable interoperability between the native SDK and the `dart_eval` runtime, you must generate and maintain binding files. Due to current limitations in the `dart_eval` CLI, a manual migration and patching process is required.
@@ -81,17 +87,21 @@ case 'subModule': return $ISubModule.wrap($value.subModule);
 case 'subModule': return $value.subModule as $Instance;
 ```
 
-##### D. Async Data Flow (Future Unboxing)
-The CLI generates sync-style wrappers for `Future` methods. This causes type mismatches and prevents data from flowing back to the host.
-*   **Fix:** Use `async/await` and unbox the result using `.$value`.
+##### D. Async Data Flow & Exception Unboxing
+The CLI generates sync-style wrappers for `Future` methods. Wrap `$_invoke` calls in `try ... catch` and pass return values and exceptions through `unboxValue` and `unboxException`.
+
 ```dart
+import '../eval_unboxer.dart';
+
 @override
 Future<Album> getAlbum(String id) async {
-  final result = await $_invoke('getAlbum', [$String(id)]);
-  // Cast to $Value and extract the real native 'Album' instance
-  return (result as $Value).$value; 
+  try {
+    final result = await $_invoke('getAlbum', [$String(id)]);
+    return unboxValue(result) as Album;
+  } catch (e, st) {
+    throw unboxException(e, st);
+  }
 }
-```
 
 ---
 

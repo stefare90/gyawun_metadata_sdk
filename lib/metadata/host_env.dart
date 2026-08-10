@@ -2,7 +2,7 @@ import 'package:eval_annotation/eval_annotation.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/inetwork_service.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/istorage_service.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/iui_service.dart';
-import 'package:gyawun_metadata_sdk/src/version.dart';
+import 'package:gyawun_metadata_sdk/metadata/version.dart';
 
 @Bind()
 class HostEnv {

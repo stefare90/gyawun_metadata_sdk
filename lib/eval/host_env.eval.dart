@@ -9,7 +9,7 @@ import '../metadata/host_env.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/inetwork_service.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/istorage_service.dart';
 import 'package:gyawun_metadata_sdk/metadata/interfaces/iui_service.dart';
-import 'package:gyawun_metadata_sdk/src/version.dart';
+import 'package:gyawun_metadata_sdk/metadata/version.dart';
 import 'package:dart_eval/stdlib/core.dart';
 import 'package:gyawun_metadata_sdk/eval/interfaces/inetwork_service.eval.dart';
 import 'package:gyawun_metadata_sdk/eval/interfaces/istorage_service.eval.dart';
