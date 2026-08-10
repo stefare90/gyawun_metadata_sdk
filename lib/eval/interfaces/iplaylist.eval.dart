@@ -5,6 +5,7 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:gyawun_metadata_sdk/eval/eval_unboxer.dart';
 import '../../metadata/interfaces/iplaylist.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/pagination.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/playlist.dart';
@@ -450,8 +451,12 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
 
   @override
   Future<Playlist> getPlaylist(String id) async {
-    final result = await $_invoke('getPlaylist', [$String(id)]);
-    return result as Playlist;
+    try {
+      final result = await $_invoke('getPlaylist', [$String(id)]);
+      return unboxValue(result) as Playlist;
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -460,18 +465,25 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('tracks', [
-      $String(id),
-      $int(offset),
-      $int(limit),
-    ]);
-    final raw = result as PaginatedResult;
-    return PaginatedResult<Track>(
-      items: raw.items.cast<Track>(),
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('tracks', [
+        $String(id),
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Track)
+          .toList();
+      return PaginatedResult<Track>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -482,14 +494,18 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
     bool? public_,
     bool? collaborative,
   }) async {
-    final result = await $_invoke('createPlaylist', [
-      $String(userId),
-      $String(name),
-      description == null ? const $null() : $String(description),
-      public_ == null ? const $null() : $bool(public_),
-      collaborative == null ? const $null() : $bool(collaborative),
-    ]);
-    return result as Playlist?;
+    try {
+      final result = await $_invoke('createPlaylist', [
+        $String(userId),
+        $String(name),
+        description == null ? const $null() : $String(description),
+        public_ == null ? const $null() : $bool(public_),
+        collaborative == null ? const $null() : $bool(collaborative),
+      ]);
+      return unboxValue(result) as Playlist?;
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -500,18 +516,26 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
     bool? public_,
     bool? collaborative,
   }) async {
-    await $_invoke('updatePlaylist', [
-      $String(playlistId),
-      name == null ? const $null() : $String(name),
-      description == null ? const $null() : $String(description),
-      public_ == null ? const $null() : $bool(public_),
-      collaborative == null ? const $null() : $bool(collaborative),
-    ]);
+    try {
+      await $_invoke('updatePlaylist', [
+        $String(playlistId),
+        name == null ? const $null() : $String(name),
+        description == null ? const $null() : $String(description),
+        public_ == null ? const $null() : $bool(public_),
+        collaborative == null ? const $null() : $bool(collaborative),
+      ]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
   Future<void> deletePlaylist(String playlistId) async {
-    await $_invoke('deletePlaylist', [$String(playlistId)]);
+    try {
+      await $_invoke('deletePlaylist', [$String(playlistId)]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -520,28 +544,44 @@ class $IPlaylist$bridge extends IPlaylist with $Bridge<IPlaylist> {
     List<String> trackIds, {
     int? position,
   }) async {
-    await $_invoke('addTracks', [
-      $String(playlistId),
-      $List.view(trackIds, (e) => $String(e)),
-      position == null ? const $null() : $int(position),
-    ]);
+    try {
+      await $_invoke('addTracks', [
+        $String(playlistId),
+        $List.view(trackIds, (e) => $String(e)),
+        position == null ? const $null() : $int(position),
+      ]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
   Future<void> removeTracks(String playlistId, List<String> trackIds) async {
-    await $_invoke('removeTracks', [
-      $String(playlistId),
-      $List.view(trackIds, (e) => $String(e)),
-    ]);
+    try {
+      await $_invoke('removeTracks', [
+        $String(playlistId),
+        $List.view(trackIds, (e) => $String(e)),
+      ]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
   Future<void> save(String playlistId) async {
-    await $_invoke('save', [$String(playlistId)]);
+    try {
+      await $_invoke('save', [$String(playlistId)]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
   Future<void> unsave(String playlistId) async {
-    await $_invoke('unsave', [$String(playlistId)]);
+    try {
+      await $_invoke('unsave', [$String(playlistId)]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 }

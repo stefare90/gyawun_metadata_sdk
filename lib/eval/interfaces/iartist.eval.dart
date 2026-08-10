@@ -5,6 +5,7 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:gyawun_metadata_sdk/eval/eval_unboxer.dart';
 import '../../metadata/interfaces/iartist.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/album.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/artist.dart';
@@ -328,8 +329,12 @@ class $IArtist$bridge extends IArtist with $Bridge<IArtist> {
 
   @override
   Future<Artist> getArtist(String id) async {
-    final result = await $_invoke('getArtist', [$String(id)]);
-    return result as Artist;
+    try {
+      final result = await $_invoke('getArtist', [$String(id)]);
+      return unboxValue(result) as Artist;
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -338,18 +343,25 @@ class $IArtist$bridge extends IArtist with $Bridge<IArtist> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('topTracks', [
-      $String(id),
-      $int(offset),
-      $int(limit),
-    ]);
-    final raw = result as PaginatedResult;
-    return PaginatedResult<Track>(
-      items: raw.items.cast<Track>(),
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('topTracks', [
+        $String(id),
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Track)
+          .toList();
+      return PaginatedResult<Track>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -358,18 +370,25 @@ class $IArtist$bridge extends IArtist with $Bridge<IArtist> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('albums', [
-      $String(id),
-      $int(offset),
-      $int(limit),
-    ]);
-    final raw = result as PaginatedResult;
-    return PaginatedResult<Album>(
-      items: raw.items.cast<Album>(),
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('albums', [
+        $String(id),
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Album)
+          .toList();
+      return PaginatedResult<Album>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -378,25 +397,42 @@ class $IArtist$bridge extends IArtist with $Bridge<IArtist> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('related', [
-      $String(id),
-      $int(offset),
-      $int(limit),
-    ]);
-    final raw = result as PaginatedResult;
-    return PaginatedResult<Artist>(
-      items: raw.items.cast<Artist>(),
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('related', [
+        $String(id),
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Artist)
+          .toList();
+      return PaginatedResult<Artist>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
-  Future<void> save(List<String> ids) =>
-      $_invoke('save', [$List.view(ids, (e) => $String(e))]);
+  Future<void> save(List<String> ids) async {
+    try {
+      await $_invoke('save', [$List.view(ids, (e) => $String(e))]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
-  Future<void> unsave(List<String> ids) =>
-      $_invoke('unsave', [$List.view(ids, (e) => $String(e))]);
+  Future<void> unsave(List<String> ids) async {
+    try {
+      await $_invoke('unsave', [$List.view(ids, (e) => $String(e))]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 }

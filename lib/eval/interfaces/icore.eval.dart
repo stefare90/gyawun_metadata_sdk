@@ -5,6 +5,7 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:gyawun_metadata_sdk/eval/eval_unboxer.dart';
 import '../../metadata/interfaces/icore.dart';
 import 'package:dart_eval/stdlib/async.dart';
 import 'package:dart_eval/stdlib/core.dart';
@@ -144,12 +145,33 @@ class $ICore$bridge extends ICore with $Bridge<ICore> {
   @override
   Future<Map<String, dynamic>?> checkUpdate(
     Map<String, dynamic> pluginConfig,
-  ) => $_invoke('checkUpdate', [$Map.wrap(pluginConfig)]);
+  ) async {
+    try {
+      final result = await $_invoke('checkUpdate', [$Map.wrap(pluginConfig)]);
+      final unboxed = unboxValue(result);
+      if (unboxed == null) return null;
+      return (unboxed as Map).cast<String, dynamic>();
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
-  String support() => $_invoke('support', []);
+  String support() {
+    try {
+      final result = $_invoke('support', []);
+      return unboxValue(result) as String;
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
-  Future<void> scrobble(Map<String, dynamic> details) =>
-      $_invoke('scrobble', [$Map.wrap(details)]);
+  Future<void> scrobble(Map<String, dynamic> details) async {
+    try {
+      await $_invoke('scrobble', [$Map.wrap(details)]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 }

@@ -5,6 +5,7 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:gyawun_metadata_sdk/eval/eval_unboxer.dart';
 import '../../metadata/interfaces/itrack.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 import 'package:dart_eval/stdlib/async.dart';
@@ -190,23 +191,40 @@ class $ITrack$bridge extends ITrack with $Bridge<ITrack> {
 
   @override
   Future<Track> getTrack(String id) async {
-    final result = await $_invoke('getTrack', [$String(id)]);
-    return result as Track;
+    try {
+      final result = await $_invoke('getTrack', [$String(id)]);
+      return unboxValue(result) as Track;
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
   Future<void> save(List<String> ids) async {
-    await $_invoke('save', [$List.view(ids, (e) => $String(e))]);
+    try {
+      await $_invoke('save', [$List.view(ids, (e) => $String(e))]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
   Future<void> unsave(List<String> ids) async {
-    await $_invoke('unsave', [$List.view(ids, (e) => $String(e))]);
+    try {
+      await $_invoke('unsave', [$List.view(ids, (e) => $String(e))]);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
   Future<List<Track>> radio(String id) async {
-    final result = await $_invoke('radio', [$String(id)]);
-    return (result as List).cast<Track>();
+    try {
+      final result = await $_invoke('radio', [$String(id)]);
+      final rawList = unboxValue(result) as List;
+      return rawList.map((e) => unboxValue(e) as Track).toList();
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 }

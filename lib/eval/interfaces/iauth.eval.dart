@@ -5,6 +5,7 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:gyawun_metadata_sdk/eval/eval_unboxer.dart';
 import '../../metadata/interfaces/iauth.dart';
 import 'package:dart_eval/stdlib/async.dart';
 import 'package:dart_eval/stdlib/core.dart';
@@ -116,17 +117,30 @@ class $IAuth$bridge extends IAuth with $Bridge<IAuth> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  Future<void> authenticate() => $_invoke('authenticate', []);
+  Future<void> authenticate() async {
+    try {
+      await $_invoke('authenticate', []);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
-  Future<void> logout() => $_invoke('logout', []);
+  Future<void> logout() async {
+    try {
+      await $_invoke('logout', []);
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
   Future<bool> isAuthenticated() async {
-    final result = await $_invoke('isAuthenticated', []);
-    if (result is $Value) {
-      return result.$value as bool;
+    try {
+      final result = await $_invoke('isAuthenticated', []);
+      return unboxValue(result) as bool;
+    } catch (e, st) {
+      throw unboxException(e, st);
     }
-    return result as bool;
   }
 }

@@ -5,6 +5,7 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:gyawun_metadata_sdk/eval/eval_unboxer.dart';
 import '../../metadata/interfaces/ibrowse.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/pagination.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/section.dart';
@@ -169,14 +170,21 @@ class $IBrowse$bridge extends IBrowse with $Bridge<IBrowse> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('sections', [$int(offset), $int(limit)]);
-    final raw = result as PaginatedResult;
-    return PaginatedResult<Section>(
-      items: raw.items.cast<Section>(),
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('sections', [$int(offset), $int(limit)]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Section)
+          .toList();
+      return PaginatedResult<Section>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -185,17 +193,22 @@ class $IBrowse$bridge extends IBrowse with $Bridge<IBrowse> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('sectionItems', [
-      $String(id),
-      $int(offset),
-      $int(limit),
-    ]);
-    final raw = result as PaginatedResult;
-    return PaginatedResult<dynamic>(
-      items: raw.items,
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('sectionItems', [
+        $String(id),
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items.map((e) => unboxValue(e)).toList();
+      return PaginatedResult<dynamic>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 }

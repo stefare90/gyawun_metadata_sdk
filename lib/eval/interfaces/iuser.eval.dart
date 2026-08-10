@@ -5,6 +5,7 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:gyawun_metadata_sdk/eval/eval_unboxer.dart';
 import '../../metadata/interfaces/iuser.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/album.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/artist.dart';
@@ -294,23 +295,20 @@ class $IUser$bridge extends IUser with $Bridge<IUser> {
 
   @override
   Future<Map<String, dynamic>> me() async {
-    final result = await $_invoke('me', []);
-    if (result == null) return {'user_id': null};
-    final Map rawData = (result is $Value)
-        ? (result.$value as Map)
-        : (result as Map);
-    final Map<String, dynamic> finalMap = {};
-    rawData.forEach((k, v) {
-      final String key = (k is $Value) ? k.$value.toString() : k.toString();
-      dynamic value;
-      if (v is $Value) {
-        value = v.$value;
-      } else {
-        value = v;
-      }
-      finalMap[key] = value;
-    });
-    return finalMap;
+    try {
+      final result = await $_invoke('me', []);
+      if (result == null) return {'user_id': null};
+      final Map rawData = unboxValue(result) as Map;
+      final Map<String, dynamic> finalMap = {};
+      rawData.forEach((k, v) {
+        final String key = unboxValue(k).toString();
+        final dynamic value = unboxValue(v);
+        finalMap[key] = value;
+      });
+      return finalMap;
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -318,15 +316,21 @@ class $IUser$bridge extends IUser with $Bridge<IUser> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('savedTracks', [$int(offset), $int(limit)]);
-    final raw = result as PaginatedResult;
-
-    return PaginatedResult<Track>(
-      items: raw.items.cast<Track>(),
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('savedTracks', [$int(offset), $int(limit)]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Track)
+          .toList();
+      return PaginatedResult<Track>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -334,15 +338,21 @@ class $IUser$bridge extends IUser with $Bridge<IUser> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('savedAlbums', [$int(offset), $int(limit)]);
-    final raw = result as PaginatedResult;
-
-    return PaginatedResult<Album>(
-      items: raw.items.cast<Album>(),
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('savedAlbums', [$int(offset), $int(limit)]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Album)
+          .toList();
+      return PaginatedResult<Album>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -350,15 +360,24 @@ class $IUser$bridge extends IUser with $Bridge<IUser> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('savedArtists', [$int(offset), $int(limit)]);
-    final raw = result as PaginatedResult;
-
-    return PaginatedResult<Artist>(
-      items: raw.items.cast<Artist>(),
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('savedArtists', [
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Artist)
+          .toList();
+      return PaginatedResult<Artist>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 
   @override
@@ -366,17 +385,23 @@ class $IUser$bridge extends IUser with $Bridge<IUser> {
     int offset = 0,
     int limit = 20,
   }) async {
-    final result = await $_invoke('savedPlaylists', [
-      $int(offset),
-      $int(limit),
-    ]);
-    final raw = result as PaginatedResult;
-
-    return PaginatedResult<Playlist>(
-      items: raw.items.cast<Playlist>(),
-      total: raw.total,
-      offset: raw.offset,
-      limit: raw.limit,
-    );
+    try {
+      final result = await $_invoke('savedPlaylists', [
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Playlist)
+          .toList();
+      return PaginatedResult<Playlist>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
   }
 }

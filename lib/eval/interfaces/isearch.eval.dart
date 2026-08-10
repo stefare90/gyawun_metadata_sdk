@@ -5,6 +5,7 @@
 
 import 'package:dart_eval/dart_eval.dart';
 import 'package:dart_eval/dart_eval_bridge.dart';
+import 'package:gyawun_metadata_sdk/eval/eval_unboxer.dart';
 import '../../metadata/interfaces/isearch.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/album.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/artist.dart';
@@ -349,36 +350,131 @@ class $ISearch$bridge extends ISearch with $Bridge<ISearch> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  List<String> chips() => ($_invoke('chips', []) as List).cast();
+  List<String> chips() {
+    try {
+      final result = $_invoke('chips', []);
+      final unboxed = unboxValue(result) as List;
+      return unboxed.map((e) => unboxValue(e).toString()).toList();
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
-  Future<SearchResponse> all(String query) => $_invoke('all', [$String(query)]);
+  Future<SearchResponse> all(String query) async {
+    try {
+      final result = await $_invoke('all', [$String(query)]);
+      return unboxValue(result) as SearchResponse;
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
   Future<PaginatedResult<Track>> tracks(
     String query, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('tracks', [$String(query), $int(offset), $int(limit)]);
+  }) async {
+    try {
+      final result = await $_invoke('tracks', [
+        $String(query),
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Track)
+          .toList();
+      return PaginatedResult<Track>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
   Future<PaginatedResult<Album>> albums(
     String query, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('albums', [$String(query), $int(offset), $int(limit)]);
+  }) async {
+    try {
+      final result = await $_invoke('albums', [
+        $String(query),
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Album)
+          .toList();
+      return PaginatedResult<Album>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
   Future<PaginatedResult<Artist>> artists(
     String query, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('artists', [$String(query), $int(offset), $int(limit)]);
+  }) async {
+    try {
+      final result = await $_invoke('artists', [
+        $String(query),
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Artist)
+          .toList();
+      return PaginatedResult<Artist>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 
   @override
   Future<PaginatedResult<Playlist>> playlists(
     String query, {
     int offset = 0,
     int limit = 20,
-  }) => $_invoke('playlists', [$String(query), $int(offset), $int(limit)]);
+  }) async {
+    try {
+      final result = await $_invoke('playlists', [
+        $String(query),
+        $int(offset),
+        $int(limit),
+      ]);
+      final raw = unboxValue(result) as PaginatedResult;
+      final unboxedItems = raw.items
+          .map((e) => unboxValue(e) as Playlist)
+          .toList();
+      return PaginatedResult<Playlist>(
+        items: unboxedItems,
+        total: raw.total,
+        offset: raw.offset,
+        limit: raw.limit,
+      );
+    } catch (e, st) {
+      throw unboxException(e, st);
+    }
+  }
 }
