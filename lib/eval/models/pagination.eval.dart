@@ -17,6 +17,12 @@ class $PaginatedResult implements $Instance {
       'PaginatedResult.',
       $PaginatedResult.$new,
     );
+
+    runtime.registerBridgeFunc(
+      'package:gyawun_metadata_sdk/metadata/models/pagination.dart',
+      'PaginatedResult.empty',
+      $PaginatedResult.$empty,
+    );
   }
 
   /// Compile-time type specification of [$PaginatedResult]
@@ -68,6 +74,15 @@ class $PaginatedResult implements $Instance {
         ),
         isFactory: false,
       ),
+
+      'empty': BridgeConstructorDef(
+        BridgeFunctionDef(
+          returns: BridgeTypeAnnotation($type),
+          namedParams: [],
+          params: [],
+        ),
+        isFactory: false,
+      ),
     },
 
     methods: {},
@@ -112,6 +127,15 @@ class $PaginatedResult implements $Instance {
         limit: args[3]!.$value,
       ),
     );
+  }
+
+  /// Wrapper for the [PaginatedResult.empty] constructor
+  static $Value? $empty(
+    Runtime runtime,
+    $Value? thisValue,
+    List<$Value?> args,
+  ) {
+    return $PaginatedResult.wrap(PaginatedResult.empty());
   }
 
   final $Instance _superclass;

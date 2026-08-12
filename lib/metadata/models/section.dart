@@ -6,5 +6,5 @@ class Section {
   final String title;
   final String? description;
 
-  Section({required this.id, required this.title, this.description});
+  const Section({required this.id, required this.title, this.description});
 }

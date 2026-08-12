@@ -7,10 +7,15 @@ class PaginatedResult<T> {
   final int offset;
   final int limit;
 
-  PaginatedResult({
+  const PaginatedResult({
     required this.items,
     required this.total,
     required this.offset,
     required this.limit,
   });
+  const PaginatedResult.empty()
+    : items = const [],
+      total = 0,
+      offset = 0,
+      limit = 10;
 }
