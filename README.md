@@ -15,7 +15,7 @@ This SDK is built on three core pillars:
 
 ## 🚀 Maintenance & Updates
 
-Because this SDK acts as a bridge between compiled code (Flutter) and interpreted code (Plugin), you **must regenerate the bindings** whenever you modify any file in the `lib/src` directory (e.g., adding a field to a model or a method to an interface).
+Because this SDK acts as a bridge between compiled code (Flutter) and interpreted code (Plugin), you **must regenerate the bindings** whenever you modify any file in the `lib/metadata` directory (e.g., adding a field to a model or a method to an interface).
 
 Questa versione è stata ottimizzata per essere ancora più chiara e strutturata come una guida di **manutenzione** professionale. Ho raggruppato i concetti per "fase" e reso le istruzioni sui fix manuali più immediate con l'uso di tabelle/elenchi puntati tecnici.
 
@@ -24,7 +24,8 @@ Questa versione è stata ottimizzata per essere ancora più chiara e strutturata
 2. Generate `lib/metadata/version.dart`:
    ```bash
    dart run build_runner build --delete-conflicting-outputs
-   
+   ```
+
 ### 🛠 Generating & Managing Bindings (`dart_eval`)
 
 To enable interoperability between the native SDK and the `dart_eval` runtime, you must generate and maintain binding files. Due to current limitations in the `dart_eval` CLI, a manual migration and patching process is required.
@@ -102,6 +103,7 @@ Future<Album> getAlbum(String id) async {
     throw unboxException(e, st);
   }
 }
+```
 
 ---
 

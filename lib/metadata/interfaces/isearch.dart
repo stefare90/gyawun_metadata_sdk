@@ -8,7 +8,7 @@ import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 
 @Bind(bridge: true)
 abstract class ISearch {
-  List<String> chips() {
+  List<SearchCategory> chips() {
     throw Exception('Method not implemented.');
   }
 

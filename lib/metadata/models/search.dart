@@ -5,6 +5,9 @@ import 'package:gyawun_metadata_sdk/metadata/models/playlist.dart';
 import 'package:gyawun_metadata_sdk/metadata/models/track.dart';
 
 @Bind()
+enum SearchCategory { tracks, albums, artists, playlists }
+
+@Bind()
 class SearchResponse {
   final List<Album> albums;
   final List<Artist> artists;

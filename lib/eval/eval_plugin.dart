@@ -62,6 +62,7 @@ class GyawunMetadataSdkPlugin implements EvalPlugin {
     registry.defineBridgeClass($IAuth$bridge.$declaration);
     registry.defineBridgeClass($IMetadataPlugin$bridge.$declaration);
     registry.defineBridgeEnum($AlbumType.$declaration);
+    registry.defineBridgeEnum($SearchCategory.$declaration);
   }
 
   @override
@@ -94,5 +95,6 @@ class GyawunMetadataSdkPlugin implements EvalPlugin {
     $IAuth$bridge.configureForRuntime(runtime);
     $IMetadataPlugin$bridge.configureForRuntime(runtime);
     $AlbumType.configureForRuntime(runtime);
+    $SearchCategory.configureForRuntime(runtime);
   }
 }

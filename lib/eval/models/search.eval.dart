@@ -16,6 +16,82 @@ import 'package:gyawun_metadata_sdk/eval/models/artist.eval.dart';
 import 'package:gyawun_metadata_sdk/eval/models/playlist.eval.dart';
 import 'package:gyawun_metadata_sdk/eval/models/track.eval.dart';
 
+/// dart_eval enum wrapper binding for [SearchCategory]
+class $SearchCategory implements $Instance {
+  /// Configure this enum for use in a [Runtime]
+  static void configureForRuntime(Runtime runtime) {
+    runtime.registerBridgeEnumValues(
+      'package:gyawun_metadata_sdk/metadata/models/search.dart',
+      'SearchCategory',
+      $SearchCategory._$values,
+    );
+
+    runtime.registerBridgeFunc(
+      'package:gyawun_metadata_sdk/metadata/models/search.dart',
+      'SearchCategory.values*g',
+      $SearchCategory.$values,
+    );
+  }
+
+  /// Compile-time type specification of [$SearchCategory]
+  static const $spec = BridgeTypeSpec(
+    'package:gyawun_metadata_sdk/metadata/models/search.dart',
+    'SearchCategory',
+  );
+
+  /// Compile-time type declaration of [$SearchCategory]
+  static const $type = BridgeTypeRef($spec);
+
+  /// Compile-time enum declaration of [$SearchCategory]
+  static const $declaration = BridgeEnumDef(
+    $type,
+
+    values: ['tracks', 'albums', 'artists', 'playlists'],
+
+    methods: {},
+    getters: {},
+    setters: {},
+    fields: {},
+  );
+
+  static final _$values = {
+    'tracks': $SearchCategory.wrap(SearchCategory.tracks),
+    'albums': $SearchCategory.wrap(SearchCategory.albums),
+    'artists': $SearchCategory.wrap(SearchCategory.artists),
+    'playlists': $SearchCategory.wrap(SearchCategory.playlists),
+  };
+
+  /// Wrapper for the [SearchCategory.values] getter
+  static $Value? $values(Runtime runtime, $Value? target, List<$Value?> args) {
+    final value = SearchCategory.values;
+    return $List.view(value, (e) => $SearchCategory.wrap(e));
+  }
+
+  final $Instance _superclass;
+
+  @override
+  final SearchCategory $value;
+
+  @override
+  SearchCategory get $reified => $value;
+
+  /// Wrap a [SearchCategory] in a [$SearchCategory]
+  $SearchCategory.wrap(this.$value) : _superclass = $Object($value);
+
+  @override
+  int $getRuntimeType(Runtime runtime) => runtime.lookupType($spec);
+
+  @override
+  $Value? $getProperty(Runtime runtime, String identifier) {
+    return _superclass.$getProperty(runtime, identifier);
+  }
+
+  @override
+  void $setProperty(Runtime runtime, String identifier, $Value value) {
+    return _superclass.$setProperty(runtime, identifier, value);
+  }
+}
+
 /// dart_eval wrapper binding for [SearchResponse]
 class $SearchResponse implements $Instance {
   /// Configure this class for use in a [Runtime]

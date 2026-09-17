@@ -60,7 +60,15 @@ class $ISearch$bridge extends ISearch with $Bridge<ISearch> {
         BridgeFunctionDef(
           returns: BridgeTypeAnnotation(
             BridgeTypeRef(CoreTypes.list, [
-              BridgeTypeAnnotation(BridgeTypeRef(CoreTypes.string, [])),
+              BridgeTypeAnnotation(
+                BridgeTypeRef(
+                  BridgeTypeSpec(
+                    'package:gyawun_metadata_sdk/metadata/models/search.dart',
+                    'SearchCategory',
+                  ),
+                  [],
+                ),
+              ),
             ]),
           ),
           namedParams: [],
@@ -299,7 +307,7 @@ class $ISearch$bridge extends ISearch with $Bridge<ISearch> {
       case 'chips':
         return $Function((runtime, target, args) {
           final result = super.chips();
-          return $List.view(result, (e) => $String(e));
+          return $List.view(result, (e) => $SearchCategory.wrap(e));
         });
       case 'all':
         return $Function((runtime, target, args) {
@@ -350,11 +358,11 @@ class $ISearch$bridge extends ISearch with $Bridge<ISearch> {
   void $bridgeSet(String identifier, $Value value) {}
 
   @override
-  List<String> chips() {
+  List<SearchCategory> chips() {
     try {
       final result = $_invoke('chips', []);
       final unboxed = unboxValue(result) as List;
-      return unboxed.map((e) => unboxValue(e).toString()).toList();
+      return unboxed.map((e) => unboxValue(e) as SearchCategory).toList();
     } catch (e, st) {
       throw unboxException(e, st);
     }
